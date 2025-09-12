@@ -49,12 +49,15 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen pt-24 bg-[#FFFFF0]">
+    <div className="min-h-screen  bg-[#FFFFF0]">
       {/* Hero Section */}
       <section 
-        className="relative h-96 flex items-center justify-center bg-cover"
-        style={{ backgroundImage: `url(${landscapeImage})` }}
+        className="relative h-96 md:h-[500px] flex items-center justify-center bg-cover"
+        style={{ backgroundImage: `url(https://images.unsplash.com/photo-1575584239694-a408e5828be4?q=100&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)` }}
       >
+
+        {/* Dark overlay */}
+  <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/70"></div>
        
         <div className="relative z-10 text-center text-white px-4">
           <h1 className="text-5xl md:text-6xl font-bold">Get In Touch</h1>

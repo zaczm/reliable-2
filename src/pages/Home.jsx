@@ -6,6 +6,8 @@ import { Heart, Shield, Users } from 'lucide-react';
 import recuperativeCareImage from '../assets/recuperative_care.jpg';
 import staffModelImage from '../assets/staff_model.jpg';
 import pathRecoveryImage from '../assets/path_recovery.jpg';
+import Section1 from '@/components/Section1';
+import PathToRecovery from '@/components/PathToRecovery';
 
 const Home = () => {
   const services = [
@@ -34,9 +36,9 @@ const Home = () => {
       {/* Hero Section */}
       <section 
         className="relative h-[600px] flex items-center justify-center text-white"
-        style={{ backgroundImage: `url("/hero_hprecuperative.jpg")`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        style={{ backgroundImage: `url("https://images.unsplash.com/photo-1501854140801-50d01698950b?q=100&w=1275&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")`, backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
-        <div className="absolute inset-0 bg-[#203B42] opacity-80"></div>
+        <div className="absolute inset-0 bg-[#203B42] opacity-60"></div>
         <div className="relative z-10 text-center">
           <h1 className="text-5xl md:text-7xl font-bold mb-4">Healing, Growth, Transformation</h1>
           <p className="text-xl md:text-2xl mb-8">A Supportive Space for Your Recovery Journey</p>
@@ -49,6 +51,10 @@ const Home = () => {
             Referral Form
           </motion.a>
         </div>
+      </section>
+
+      <section>
+        <Section1 />
       </section>
 
       {/* What is a Recuperative Care Facility */}
@@ -104,26 +110,12 @@ const Home = () => {
 </section>
 
 
-      {/* Path to Recovery */}
-      <section className="section-padding bg-[#F2F1E4]">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 text-[#203B42]">The Path to Recovery</h2>
-          <p className="text-center text-xl mb-12 text-[#203B42]">
-            Our recovery approach is designed to provide holistic support, addressing both physical and emotional needs. Each individual receives personalized care to regain strength, independence, and hope.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, idx) => (
-              <div key={idx} className="p-6 shadow-lg rounded-lg bg-[#FFFFF0]">
-                <h3 className="text-2xl font-semibold mb-4 text-[#203B42]">{service.title}</h3>
-                <p>{service.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+     <section>
+      <PathToRecovery />
+     </section>
 
       {/* Book a Bed / Intake Team */}
-      <section className="section-padding my-20 mx-10 bg-[#203B42] text-white text-center rounded-lg">
+      <section className="section-padding my-20 md:mx-10 mx-2 bg-[#203B42] text-white text-center rounded-lg">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold mb-6">Book A Bed & Connect With Our Intake Team</h2>
           <p className="text-xl mb-6">

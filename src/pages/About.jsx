@@ -13,20 +13,26 @@ const Card = ({ icon: Icon, title, description, bgGradient, textColor = 'text-wh
 
 const About = () => {
   return (
-    <div className="min-h-screen pt-28 bg-[#FFFFF0]">
+    <div className="min-h-screen  bg-[#FFFFF0]">
       {/* Hero Section */}
       <section
-        className="relative h-96 flex items-center justify-center bg-no-repeat bg-cover"
-        style={{ backgroundImage: `url(${landscapeImage})` }}
-      >
-       
-        <div className="relative z-10 text-center text-white px-4">
-          <h1 className="text-5xl md:text-6xl font-bold">About Us</h1>
-          <p className="text-xl md:text-2xl max-w-2xl mx-auto mt-4">
-            Dedicated to compassionate care and supporting your journey to recovery
-          </p>
-        </div>
-      </section>
+  className="relative md:h-[500px] h-96 flex items-center justify-center bg-no-repeat bg-cover"
+  style={{
+    backgroundImage: `url(https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=100&w=1301&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
+  }}
+>
+  {/* Dark overlay */}
+  <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/70"></div>
+
+
+  <div className="relative z-10 text-center text-white px-4">
+    <h1 className="text-5xl md:text-6xl font-bold">About Us</h1>
+    <p className="text-xl md:text-2xl max-w-2xl mx-auto mt-4">
+      Dedicated to compassionate care and supporting your journey to recovery
+    </p>
+  </div>
+</section>
+
 
       {/* Mission & Vision */}
       <section className="section-padding bg-[#F2F1E4]">
