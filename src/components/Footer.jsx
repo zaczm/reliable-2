@@ -20,9 +20,9 @@ const Footer = () => {
         {/* Get In Touch */}
         <div>
           <h3 class="text-xl font-bold mb-4">Get In Touch</h3>
-          <p class="mb-2 flex items-center"><Phone size={16} class="mr-2" /> 612-394-5624</p>
-          <p class="mb-2 flex items-center"><Mail size={16} class="mr-2" /> info@hprecuperative.com</p>
-          <p>123 Healing Path, Minneapolis, MN 55401</p>
+          <p class="mb-2 flex items-center"><Phone size={16} class="mr-2" /> (952) 217-6756</p>
+          <p class="mb-2 flex items-center"><Mail size={16} class="mr-2" /> info@reliablerecuperative.com</p>
+          <p>6124739338</p>
         </div>
 
         {/* Newsletter */}
@@ -45,7 +45,7 @@ const Footer = () => {
         </div>
       </div>
       <div class="text-center border-t border-gray-700 pt-8 mt-8">
-        <p>©Copyright 2025. All Rights Reserved. Healing Path Recuperative Care</p>
+        <p>©Copyright 2025. All Rights Reserved. Reliable Recovery Recuperative Care</p>
       </div>
     </footer>
   );

@@ -17,15 +17,15 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Phone",
-      details: "612-394-5624",
-      link: "tel:612-394-5624",
+      details: "(952) 217-6756",
+      link: "tel:(952) 217-6756",
       description: "Call us for immediate assistance",
       bgGradient: "bg-gradient-to-br from-[#203B42] to-[#D89D66]"
     },
     {
       icon: Mail,
       title: "Email",
-      details: "info@hprecuperative.com",
+      details: "info@reliablerecuperative.com",
       link: "mailto:info@hprecuperative.com",
       description: "Send us a message anytime",
       bgGradient: "bg-gradient-to-br from-[#D89D66] to-[#99A4E5]"
@@ -33,7 +33,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: "Location",
-      details: "123 Healing Path, Minneapolis, MN 55401",
+      details: "6124739338",
       link: "#",
       description: "Visit us at our facility",
       bgGradient: "bg-gradient-to-br from-[#99A4E5] to-[#788B9C]"

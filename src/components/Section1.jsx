@@ -24,7 +24,7 @@ const Section1 = () => {
               className="bg-gradient-to-br from-[#D89D66] to-[#D89D66] text-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform duration-300"
             >
               <Home className="w-12 h-12 mb-4" />
-              <h3 className="text-2xl font-semibold mb-2">Safe Temporary Stay</h3>
+              <h3 className="text-2xl font-semibold mb-2"> Safe Recovery and Restitution</h3>
               <p>
                 A secure, short-term residence designed to aid recovery with comfort and tailored support for all residents.
               </p>

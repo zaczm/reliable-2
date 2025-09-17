@@ -50,7 +50,7 @@ const Header = () => {
             <Phone size={20} />
           </motion.div>
           <span className="group-hover:text-yellow-300 transition-colors">
-            Call now to reserve a bed: 612-394-5624
+            Call now to reserve a bed: (952) 217-6756
           </span>
         </motion.a>
       </div>
