@@ -14,7 +14,7 @@ const Home = () => {
     {
       icon: Heart,
       title: 'Recuperative Care',
-      description: 'A supportive, home-like environment offering short-term recovery with dignity, comfort, and personalized compassionate care.',
+      description: 'A supportive, home-like environment offering recovery with dignity, comfort, and personalized compassionate care.',
       color: 'from-[#203B42] to-[#D89D66]'
     },
     {
@@ -26,7 +26,7 @@ const Home = () => {
     {
       icon: Users,
       title: 'Medical Respite',
-      description: 'Short-term medical care in a supportive setting, ensuring rest, recovery, and dignity after hospital discharge.',
+      description: 'Proper medical care in a supportive setting, ensuring rest, recovery, and dignity after hospital discharge.',
       color: 'from-[#D89D66] to-[#F2F1E4]'
     }
   ];

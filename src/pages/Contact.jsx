@@ -33,7 +33,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: "Location",
-      details: "6124739338",
+      details: "796 Capitol Heights Saint Paul MN 55103",
       link: "#",
       description: "Visit us at our facility",
       bgGradient: "bg-gradient-to-br from-[#99A4E5] to-[#788B9C]"

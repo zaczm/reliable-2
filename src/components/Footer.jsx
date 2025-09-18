@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Phone } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -21,8 +21,9 @@ const Footer = () => {
         <div>
           <h3 class="text-xl font-bold mb-4">Get In Touch</h3>
           <p class="mb-2 flex items-center"><Phone size={16} class="mr-2" /> (952) 217-6756</p>
-          <p class="mb-2 flex items-center"><Mail size={16} class="mr-2" /> info@reliablerecuperative.com</p>
-          <p>6124739338</p>
+          
+        <p class="mb-2 flex items-center"><MapPin size={16} class="mr-2" /> 796 Capitol Heights Saint Paul MN 55103</p>
+        
         </div>
 
         {/* Newsletter */}
