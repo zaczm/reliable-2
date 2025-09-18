@@ -106,11 +106,11 @@ const Services = () => {
             Our compassionate admissions team is here to help. Contact us today to learn more and begin the admission process.
           </p>
           <a
-            href="tel:(952) 217-6756"
+            href="tel:612-998-4449"
             className="inline-flex items-center space-x-2 bg-[#D89D66] text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#99A48E] transition-colors duration-300"
           >
             <Phone size={20} />
-            <span>Call Us: (952) 217-6756</span>
+            <span>Call Us: 612-998-4449</span>
           </a>
         </div>
       </section>

@@ -17,8 +17,8 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Phone",
-      details: "(952) 217-6756",
-      link: "tel:(952) 217-6756",
+      details: "612-998-4449",
+      link: "tel:612-998-4449",
       description: "Call us for immediate assistance",
       bgGradient: "bg-gradient-to-br from-[#203B42] to-[#D89D66]"
     },
