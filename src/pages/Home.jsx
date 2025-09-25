@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Shield, Users } from 'lucide-react';
+import { Link } from "react-router-dom";
+
 
 // Import images
 import recuperativeCareImage from '../assets/recuperative_care.jpg';
@@ -42,14 +44,17 @@ const Home = () => {
         <div className="relative z-10 text-center">
           <h1 className="text-5xl md:text-7xl font-bold mb-4">Healing, Growth, Transformation</h1>
           <p className="text-xl md:text-2xl mb-8">A Supportive Space for Your Recovery Journey</p>
-          <motion.a 
-            href="/referral" 
-            className="bg-[#D89D66] text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#99A4E5] transition-colors duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Referral Form
-          </motion.a>
+          <motion.div
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <Link
+          to="/referral"
+          className="bg-[#D89D66] text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#99A4E5] transition-colors duration-300 inline-block"
+        >
+          Referral Form
+        </Link>
+      </motion.div>
         </div>
       </section>
 
