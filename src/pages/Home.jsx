@@ -50,7 +50,7 @@ const Home = () => {
       >
         <Link
           to="/referral"
-          className="bg-[#D89D66] text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#99A4E5] transition-colors duration-300 inline-block"
+          className="bg-red-700 text-white px-10 py-6 rounded-full text-xl font-semibold hover:bg-red-400 transition-colors duration-300 inline-block"
         >
           Referral Form
         </Link>
