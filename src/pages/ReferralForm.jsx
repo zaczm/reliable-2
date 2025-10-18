@@ -8,7 +8,6 @@ export default function ReferralForm() {
   const handleFileChange = (e) => {
     const newFiles = Array.from(e.target.files);
     setFiles([...files, ...newFiles]);
-    // Reset input to allow selecting same file again
     e.target.value = '';
   };
 
@@ -28,42 +27,50 @@ export default function ReferralForm() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const formData = new FormData(e.target);
-    
-    // Add Web3Forms access key
-    formData.append('access_key', 'cc5f7691-cd9b-4c16-bb2e-f270495d69ed');
-    
-    // Add files to formData
-    files.forEach((file) => {
-      formData.append('attachment', file);
-    });
-
     try {
+      const formData = new FormData(e.target);
+      
+      // Add Web3Forms access key
+      formData.append('access_key', 'cc5f7691-cd9b-4c16-bb2e-f270495d69ed');
+      
+      // Add redirect URL
+      formData.append('redirect', 'false');
+      
+      // Add files
+      files.forEach((file) => {
+        formData.append('attachment', file);
+      });
+
+      console.log('Submitting form...');
+      
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: formData
       });
 
+      console.log('Response status:', response.status);
       const result = await response.json();
+      console.log('Response data:', result);
 
       if (result.success) {
         alert('✅ Referral form submitted successfully! We will contact you soon.');
         e.target.reset();
         setFiles([]);
-        // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        alert('❌ Error submitting form. Please try again or email us directly at Info@reliablerecuperative.org');
+        console.error('Submission failed:', result);
+        alert(`❌ Error: ${result.message || 'Submission failed'}. Please email us at info@bullale.com`);
       }
     } catch (error) {
       console.error('Submission error:', error);
-      alert('❌ Error submitting form. Please try again or email us directly at Info@reliablerecuperative.org');
+      console.error('Error type:', error.name);
+      console.error('Error message:', error.message);
+      alert('❌ Network error. Please check your internet connection or email us at info@bullale.com');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setIsSubmitting(false);
   };
 
-  // Set today's date
   const today = new Date().toISOString().split('T')[0];
 
   return (
@@ -73,7 +80,7 @@ export default function ReferralForm() {
           <h1>Reliable Recuperative Care Referral Form</h1>
           <div className="contact-info">
             <p><strong>Fax:</strong> (612) 444-8950</p>
-            <p><strong>Email:</strong> Info@reliablerecuperative.org</p>
+            <p><strong>Email:</strong> info@bullale.com</p>
           </div>
         </div>
 
@@ -84,36 +91,36 @@ export default function ReferralForm() {
             
             <div className="form-row">
               <label htmlFor="memberName">Member Full Name <span className="required">*</span></label>
-              <input type="text" id="memberName" name="memberName" required />
+              <input type="text" id="memberName" name="Member_Name" required />
             </div>
             
             <div className="form-row">
               <label htmlFor="dob">Date of Birth <span className="required">*</span></label>
-              <input type="date" id="dob" name="dob" required />
+              <input type="date" id="dob" name="Date_of_Birth" required />
             </div>
             
             <div className="form-row">
               <label htmlFor="memberId">MHCP Member ID <span className="required">*</span></label>
-              <input type="text" id="memberId" name="memberId" required />
+              <input type="text" id="memberId" name="MHCP_Member_ID" required />
             </div>
             
             <div className="form-row">
               <label>Gender</label>
               <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="male" name="gender" value="Male" />
+                  <input type="radio" id="male" name="Gender" value="Male" />
                   <label htmlFor="male">Male</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="female" name="gender" value="Female" />
+                  <input type="radio" id="female" name="Gender" value="Female" />
                   <label htmlFor="female">Female</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="other" name="gender" value="Other" />
+                  <input type="radio" id="other" name="Gender" value="Other" />
                   <label htmlFor="other">Other</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="noSay" name="gender" value="Prefer not to say" />
+                  <input type="radio" id="noSay" name="Gender" value="Prefer not to say" />
                   <label htmlFor="noSay">Prefer not to say</label>
                 </div>
               </div>
@@ -121,12 +128,12 @@ export default function ReferralForm() {
             
             <div className="form-row">
               <label htmlFor="phone">Phone Number <span className="required">*</span></label>
-              <input type="tel" id="phone" name="phone" required />
+              <input type="tel" id="phone" name="Phone" required />
             </div>
             
             <div className="form-row">
               <label htmlFor="email">Email (if available)</label>
-              <input type="email" id="email" name="email" />
+              <input type="email" id="email" name="Email" />
             </div>
           </div>
 
@@ -136,22 +143,22 @@ export default function ReferralForm() {
             
             <div className="form-row">
               <label htmlFor="facilityName">Referring Facility Name <span className="required">*</span></label>
-              <input type="text" id="facilityName" name="facilityName" required />
+              <input type="text" id="facilityName" name="Facility_Name" required />
             </div>
             
             <div className="form-row">
               <label>Facility Type</label>
               <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="hospital" name="facilityType" value="Hospital" />
+                  <input type="radio" id="hospital" name="Facility_Type" value="Hospital" />
                   <label htmlFor="hospital">Hospital</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="clinic" name="facilityType" value="Clinic" />
+                  <input type="radio" id="clinic" name="Facility_Type" value="Clinic" />
                   <label htmlFor="clinic">Clinic</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="providerOffice" name="facilityType" value="Provider Office" />
+                  <input type="radio" id="providerOffice" name="Facility_Type" value="Provider Office" />
                   <label htmlFor="providerOffice">Provider Office</label>
                 </div>
               </div>
@@ -159,26 +166,26 @@ export default function ReferralForm() {
             
             <div className="form-row">
               <label htmlFor="providerName">Referring Provider Name <span className="required">*</span></label>
-              <input type="text" id="providerName" name="providerName" required />
+              <input type="text" id="providerName" name="Provider_Name" required />
             </div>
             
             <div className="form-row">
               <label>Provider Type</label>
               <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="md" name="providerType" value="MD" />
+                  <input type="radio" id="md" name="Provider_Type" value="MD" />
                   <label htmlFor="md">MD</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="do" name="providerType" value="DO" />
+                  <input type="radio" id="do" name="Provider_Type" value="DO" />
                   <label htmlFor="do">DO</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="aprn" name="providerType" value="APRN" />
+                  <input type="radio" id="aprn" name="Provider_Type" value="APRN" />
                   <label htmlFor="aprn">APRN</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="pa" name="providerType" value="PA" />
+                  <input type="radio" id="pa" name="Provider_Type" value="PA" />
                   <label htmlFor="pa">PA</label>
                 </div>
               </div>
@@ -186,17 +193,17 @@ export default function ReferralForm() {
             
             <div className="form-row">
               <label htmlFor="contactPerson">Referring Contact Person</label>
-              <input type="text" id="contactPerson" name="contactPerson" />
+              <input type="text" id="contactPerson" name="Contact_Person" />
             </div>
             
             <div className="form-row">
               <label htmlFor="contactPhone">Phone Number</label>
-              <input type="tel" id="contactPhone" name="contactPhone" />
+              <input type="tel" id="contactPhone" name="Contact_Phone" />
             </div>
             
             <div className="form-row">
               <label htmlFor="faxEmail">Fax / Email (for discharge paperwork)</label>
-              <input type="text" id="faxEmail" name="faxEmail" />
+              <input type="text" id="faxEmail" name="Fax_Email" />
             </div>
           </div>
 
@@ -206,33 +213,33 @@ export default function ReferralForm() {
             
             <div className="form-group">
               <div className="checkbox-item" style={{marginBottom: '10px'}}>
-                <input type="checkbox" id="eligMA" name="eligMA" value="yes" />
+                <input type="checkbox" id="eligMA" name="Eligibility_MA" value="yes" />
                 <label htmlFor="eligMA">Member is with MA/ Hennepin Health/ UCare</label>
               </div>
               
               <div className="checkbox-item" style={{marginBottom: '10px'}}>
-                <input type="checkbox" id="eligHomeless" name="eligHomeless" value="yes" />
+                <input type="checkbox" id="eligHomeless" name="Eligibility_Homeless" value="yes" />
                 <label htmlFor="eligHomeless">Member is experiencing homelessness or is unhoused</label>
               </div>
               
               <div className="checkbox-item" style={{marginBottom: '10px'}}>
-                <input type="checkbox" id="eligShortTerm" name="eligShortTerm" value="yes" />
+                <input type="checkbox" id="eligShortTerm" name="Eligibility_Short_Term" value="yes" />
                 <label htmlFor="eligShortTerm">Member requires short-term medical care (expected duration):</label>
               </div>
               <div className="inline-input" style={{marginLeft: '30px', marginBottom: '10px'}}>
                 <div className="checkbox-item">
-                  <input type="radio" id="duration21" name="duration" value="≤21 days" />
+                  <input type="radio" id="duration21" name="Duration" value="≤21 days" />
                   <label htmlFor="duration21">≤21 days</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="durationExt" name="duration" value="Extension" />
+                  <input type="radio" id="durationExt" name="Duration" value="Extension" />
                   <label htmlFor="durationExt">Requesting Extension:</label>
-                  <input type="text" id="extensionDays" name="extensionDays" placeholder="days" style={{width: '100px', marginLeft: '5px'}} />
+                  <input type="text" id="extensionDays" name="Extension_Days" placeholder="days" style={{width: '100px', marginLeft: '5px'}} />
                 </div>
               </div>
               
               <div className="checkbox-item" style={{marginBottom: '10px'}}>
-                <input type="checkbox" id="eligADL" name="eligADL" value="yes" />
+                <input type="checkbox" id="eligADL" name="Eligibility_ADL" value="yes" />
                 <label htmlFor="eligADL">Member can independently perform Activities of Daily Living (ADLs)</label>
               </div>
             </div>
@@ -244,23 +251,23 @@ export default function ReferralForm() {
             
             <div className="form-row">
               <label htmlFor="primaryDiagnosis">Primary Diagnosis (ICD-10) <span className="required">*</span></label>
-              <input type="text" id="primaryDiagnosis" name="primaryDiagnosis" required />
+              <input type="text" id="primaryDiagnosis" name="Primary_Diagnosis" required />
             </div>
             
             <div className="form-row">
               <label htmlFor="secondaryDiagnosis">Secondary Diagnosis (if applicable)</label>
-              <input type="text" id="secondaryDiagnosis" name="secondaryDiagnosis" />
+              <input type="text" id="secondaryDiagnosis" name="Secondary_Diagnosis" />
             </div>
             
             <div className="form-row">
               <label htmlFor="reasonReferral">Reason for Referral to Recuperative Care <span className="required">*</span></label>
-              <textarea id="reasonReferral" name="reasonReferral" required></textarea>
+              <textarea id="reasonReferral" name="Reason_for_Referral" required></textarea>
             </div>
             
             <div className="form-row">
               <label>HPI/Assessment and Discharge Care Plan Attached?</label>
               <div className="checkbox-item">
-                <input type="checkbox" id="carePlanAttached" name="carePlanAttached" value="yes" />
+                <input type="checkbox" id="carePlanAttached" name="Care_Plan_Attached" value="yes" />
                 <label htmlFor="carePlanAttached">Yes</label>
               </div>
             </div>
@@ -268,7 +275,7 @@ export default function ReferralForm() {
             <div className="form-row">
               <label>Medication Needs</label>
               <div className="checkbox-item">
-                <input type="checkbox" id="selfAdminister" name="selfAdminister" value="yes" />
+                <input type="checkbox" id="selfAdminister" name="Self_Administer_Meds" value="yes" />
                 <label htmlFor="selfAdminister">Self-administer</label>
               </div>
             </div>
@@ -277,11 +284,11 @@ export default function ReferralForm() {
               <label>Wound Care Needed?</label>
               <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="woundYes" name="woundCare" value="Yes" />
+                  <input type="radio" id="woundYes" name="Wound_Care" value="Yes" />
                   <label htmlFor="woundYes">Yes</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="woundNo" name="woundCare" value="No" />
+                  <input type="radio" id="woundNo" name="Wound_Care" value="No" />
                   <label htmlFor="woundNo">No</label>
                 </div>
               </div>
@@ -291,11 +298,11 @@ export default function ReferralForm() {
               <label>Follow-up Appointments Scheduled?</label>
               <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="apptYes" name="appointments" value="Yes" />
+                  <input type="radio" id="apptYes" name="Appointments" value="Yes" />
                   <label htmlFor="apptYes">Yes</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="apptNo" name="appointments" value="No" />
+                  <input type="radio" id="apptNo" name="Appointments" value="No" />
                   <label htmlFor="apptNo">No</label>
                 </div>
               </div>
@@ -303,7 +310,7 @@ export default function ReferralForm() {
             
             <div className="form-row">
               <label htmlFor="apptList">If Yes, list:</label>
-              <textarea id="apptList" name="apptList"></textarea>
+              <textarea id="apptList" name="Appointment_List"></textarea>
             </div>
           </div>
 
@@ -315,11 +322,11 @@ export default function ReferralForm() {
               <label>Physical aggression</label>
               <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="aggressionYes" name="aggression" value="Yes" />
+                  <input type="radio" id="aggressionYes" name="Physical_Aggression" value="Yes" />
                   <label htmlFor="aggressionYes">Yes</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="aggressionNo" name="aggression" value="No" />
+                  <input type="radio" id="aggressionNo" name="Physical_Aggression" value="No" />
                   <label htmlFor="aggressionNo">No</label>
                 </div>
               </div>
@@ -329,11 +336,11 @@ export default function ReferralForm() {
               <label>Illegal substance use</label>
               <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="substanceYes" name="substance" value="Yes" />
+                  <input type="radio" id="substanceYes" name="Substance_Use" value="Yes" />
                   <label htmlFor="substanceYes">Yes</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="substanceNo" name="substance" value="No" />
+                  <input type="radio" id="substanceNo" name="Substance_Use" value="No" />
                   <label htmlFor="substanceNo">No</label>
                 </div>
               </div>
@@ -343,11 +350,11 @@ export default function ReferralForm() {
               <label>Probation/parole</label>
               <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="probationYes" name="probation" value="Yes" />
+                  <input type="radio" id="probationYes" name="Probation_Parole" value="Yes" />
                   <label htmlFor="probationYes">Yes</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="probationNo" name="probation" value="No" />
+                  <input type="radio" id="probationNo" name="Probation_Parole" value="No" />
                   <label htmlFor="probationNo">No</label>
                 </div>
               </div>
@@ -357,11 +364,11 @@ export default function ReferralForm() {
               <label>Any Issues with Bowel Control</label>
               <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="bowelYes" name="bowel" value="Yes" />
+                  <input type="radio" id="bowelYes" name="Bowel_Control" value="Yes" />
                   <label htmlFor="bowelYes">Yes</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="bowelNo" name="bowel" value="No" />
+                  <input type="radio" id="bowelNo" name="Bowel_Control" value="No" />
                   <label htmlFor="bowelNo">No</label>
                 </div>
               </div>
@@ -371,11 +378,11 @@ export default function ReferralForm() {
               <label>Any Issues with Bladder Control</label>
               <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="bladderYes" name="bladder" value="Yes" />
+                  <input type="radio" id="bladderYes" name="Bladder_Control" value="Yes" />
                   <label htmlFor="bladderYes">Yes</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="bladderNo" name="bladder" value="No" />
+                  <input type="radio" id="bladderNo" name="Bladder_Control" value="No" />
                   <label htmlFor="bladderNo">No</label>
                 </div>
               </div>
@@ -385,11 +392,11 @@ export default function ReferralForm() {
               <label>Diet Allergies</label>
               <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="dietYes" name="dietAllergies" value="Yes" />
+                  <input type="radio" id="dietYes" name="Diet_Allergies" value="Yes" />
                   <label htmlFor="dietYes">Yes</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="dietNo" name="dietAllergies" value="No" />
+                  <input type="radio" id="dietNo" name="Diet_Allergies" value="No" />
                   <label htmlFor="dietNo">No</label>
                 </div>
               </div>
@@ -399,11 +406,11 @@ export default function ReferralForm() {
               <label>Medication Allergies</label>
               <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="medAllergyYes" name="medAllergies" value="Yes" />
+                  <input type="radio" id="medAllergyYes" name="Medication_Allergies" value="Yes" />
                   <label htmlFor="medAllergyYes">Yes</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="medAllergyNo" name="medAllergies" value="No" />
+                  <input type="radio" id="medAllergyNo" name="Medication_Allergies" value="No" />
                   <label htmlFor="medAllergyNo">No</label>
                 </div>
               </div>
@@ -411,7 +418,7 @@ export default function ReferralForm() {
             
             <div className="form-row">
               <label htmlFor="otherAllergies">Any other Allergies</label>
-              <textarea id="otherAllergies" name="otherAllergies"></textarea>
+              <textarea id="otherAllergies" name="Other_Allergies"></textarea>
             </div>
           </div>
 
@@ -460,27 +467,27 @@ export default function ReferralForm() {
             
             <div className="form-row">
               <label htmlFor="providerSignature">Referring Provider Signature <span className="required">*</span></label>
-              <input type="text" id="providerSignature" name="providerSignature" placeholder="Type full name as signature" required />
+              <input type="text" id="providerSignature" name="Provider_Signature" placeholder="Type full name as signature" required />
             </div>
             
             <div className="form-row">
               <label htmlFor="signatureDate">Date <span className="required">*</span></label>
-              <input type="date" id="signatureDate" name="signatureDate" required defaultValue={today} />
+              <input type="date" id="signatureDate" name="Signature_Date" required defaultValue={today} />
             </div>
             
             <div className="form-row">
               <label htmlFor="printName">Print Name</label>
-              <input type="text" id="printName" name="printName" />
+              <input type="text" id="printName" name="Print_Name" />
             </div>
             
             <div className="form-row">
               <label htmlFor="facilityRep">Facility Representative (if different)</label>
-              <input type="text" id="facilityRep" name="facilityRep" />
+              <input type="text" id="facilityRep" name="Facility_Representative" />
             </div>
             
             <div className="form-row">
               <label htmlFor="facilityRepDate">Date</label>
-              <input type="date" id="facilityRepDate" name="facilityRepDate" />
+              <input type="date" id="facilityRepDate" name="Facility_Rep_Date" />
             </div>
           </div>
 
@@ -490,7 +497,7 @@ export default function ReferralForm() {
               {isSubmitting ? 'Submitting...' : 'Submit Referral Form'}
             </button>
             <p style={{marginTop: '15px', color: '#666'}}>
-              Form will be sent to: <strong>Info@reliablerecuperative.org</strong>
+              Form will be sent to: <strong>info@bullale.com</strong>
             </p>
           </div>
 
