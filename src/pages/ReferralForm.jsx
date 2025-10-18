@@ -33,10 +33,10 @@ export default function ReferralForm() {
       // Add Web3Forms access key
       formData.append('access_key', 'cc5f7691-cd9b-4c16-bb2e-f270495d69ed');
       
-      // Add redirect URL
+      // Add redirect URL (optional - prevents default thank you page)
       formData.append('redirect', 'false');
       
-      // Add files
+      // Add files with proper field name for Web3Forms
       files.forEach((file) => {
         formData.append('attachment', file);
       });
@@ -59,13 +59,13 @@ export default function ReferralForm() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         console.error('Submission failed:', result);
-        alert(`❌ Error: ${result.message || 'Submission failed'}. Please email us at info@bullale.com`);
+        alert(`❌ Error: ${result.message || 'Submission failed'}. Please email us at Info@reliablerecuperative.org`);
       }
     } catch (error) {
       console.error('Submission error:', error);
       console.error('Error type:', error.name);
       console.error('Error message:', error.message);
-      alert('❌ Network error. Please check your internet connection or email us at info@bullale.com');
+      alert('❌ Network error. Please check your internet connection or email us at Info@reliablerecuperative.org');
     } finally {
       setIsSubmitting(false);
     }
@@ -80,7 +80,7 @@ export default function ReferralForm() {
           <h1>Reliable Recuperative Care Referral Form</h1>
           <div className="contact-info">
             <p><strong>Fax:</strong> (612) 444-8950</p>
-            <p><strong>Email:</strong> info@bullale.com</p>
+            <p><strong>Email:</strong> Info@reliablerecuperative.org</p>
           </div>
         </div>
 
@@ -207,45 +207,7 @@ export default function ReferralForm() {
             </div>
           </div>
 
-          {/* Member Eligibility Confirmation */}
-          <div className="form-section">
-            <div className="section-title">Member Eligibility Confirmation</div>
-            
-            <div className="form-group">
-              <div className="checkbox-item" style={{marginBottom: '10px'}}>
-                <input type="checkbox" id="eligMA" name="Eligibility_MA" value="yes" />
-                <label htmlFor="eligMA">Member is with MA/ Hennepin Health/ UCare</label>
-              </div>
-              
-              <div className="checkbox-item" style={{marginBottom: '10px'}}>
-                <input type="checkbox" id="eligHomeless" name="Eligibility_Homeless" value="yes" />
-                <label htmlFor="eligHomeless">Member is experiencing homelessness or is unhoused</label>
-              </div>
-              
-              <div className="checkbox-item" style={{marginBottom: '10px'}}>
-                <input type="checkbox" id="eligShortTerm" name="Eligibility_Short_Term" value="yes" />
-                <label htmlFor="eligShortTerm">Member requires short-term medical care (expected duration):</label>
-              </div>
-              <div className="inline-input" style={{marginLeft: '30px', marginBottom: '10px'}}>
-                <div className="checkbox-item">
-                  <input type="radio" id="duration21" name="Duration" value="≤21 days" />
-                  <label htmlFor="duration21">≤21 days</label>
-                </div>
-                <div className="checkbox-item">
-                  <input type="radio" id="durationExt" name="Duration" value="Extension" />
-                  <label htmlFor="durationExt">Requesting Extension:</label>
-                  <input type="text" id="extensionDays" name="Extension_Days" placeholder="days" style={{width: '100px', marginLeft: '5px'}} />
-                </div>
-              </div>
-              
-              <div className="checkbox-item" style={{marginBottom: '10px'}}>
-                <input type="checkbox" id="eligADL" name="Eligibility_ADL" value="yes" />
-                <label htmlFor="eligADL">Member can independently perform Activities of Daily Living (ADLs)</label>
-              </div>
-            </div>
-          </div>
-
-          {/* Medical Summary and Needs */}
+          {/* Medical Summary */}
           <div className="form-section">
             <div className="section-title">Medical Summary and Needs</div>
             
@@ -260,173 +222,16 @@ export default function ReferralForm() {
             </div>
             
             <div className="form-row">
-              <label htmlFor="reasonReferral">Reason for Referral to Recuperative Care <span className="required">*</span></label>
+              <label htmlFor="reasonReferral">Reason for Referral <span className="required">*</span></label>
               <textarea id="reasonReferral" name="Reason_for_Referral" required></textarea>
             </div>
-            
-            <div className="form-row">
-              <label>HPI/Assessment and Discharge Care Plan Attached?</label>
-              <div className="checkbox-item">
-                <input type="checkbox" id="carePlanAttached" name="Care_Plan_Attached" value="yes" />
-                <label htmlFor="carePlanAttached">Yes</label>
-              </div>
-            </div>
-            
-            <div className="form-row">
-              <label>Medication Needs</label>
-              <div className="checkbox-item">
-                <input type="checkbox" id="selfAdminister" name="Self_Administer_Meds" value="yes" />
-                <label htmlFor="selfAdminister">Self-administer</label>
-              </div>
-            </div>
-            
-            <div className="form-row">
-              <label>Wound Care Needed?</label>
-              <div className="checkbox-group">
-                <div className="checkbox-item">
-                  <input type="radio" id="woundYes" name="Wound_Care" value="Yes" />
-                  <label htmlFor="woundYes">Yes</label>
-                </div>
-                <div className="checkbox-item">
-                  <input type="radio" id="woundNo" name="Wound_Care" value="No" />
-                  <label htmlFor="woundNo">No</label>
-                </div>
-              </div>
-            </div>
-            
-            <div className="form-row">
-              <label>Follow-up Appointments Scheduled?</label>
-              <div className="checkbox-group">
-                <div className="checkbox-item">
-                  <input type="radio" id="apptYes" name="Appointments" value="Yes" />
-                  <label htmlFor="apptYes">Yes</label>
-                </div>
-                <div className="checkbox-item">
-                  <input type="radio" id="apptNo" name="Appointments" value="No" />
-                  <label htmlFor="apptNo">No</label>
-                </div>
-              </div>
-            </div>
-            
-            <div className="form-row">
-              <label htmlFor="apptList">If Yes, list:</label>
-              <textarea id="apptList" name="Appointment_List"></textarea>
-            </div>
           </div>
 
-          {/* Additional Patient History */}
-          <div className="form-section">
-            <div className="section-title">Additional Patient History</div>
-            
-            <div className="form-row">
-              <label>Physical aggression</label>
-              <div className="checkbox-group">
-                <div className="checkbox-item">
-                  <input type="radio" id="aggressionYes" name="Physical_Aggression" value="Yes" />
-                  <label htmlFor="aggressionYes">Yes</label>
-                </div>
-                <div className="checkbox-item">
-                  <input type="radio" id="aggressionNo" name="Physical_Aggression" value="No" />
-                  <label htmlFor="aggressionNo">No</label>
-                </div>
-              </div>
-            </div>
-            
-            <div className="form-row">
-              <label>Illegal substance use</label>
-              <div className="checkbox-group">
-                <div className="checkbox-item">
-                  <input type="radio" id="substanceYes" name="Substance_Use" value="Yes" />
-                  <label htmlFor="substanceYes">Yes</label>
-                </div>
-                <div className="checkbox-item">
-                  <input type="radio" id="substanceNo" name="Substance_Use" value="No" />
-                  <label htmlFor="substanceNo">No</label>
-                </div>
-              </div>
-            </div>
-            
-            <div className="form-row">
-              <label>Probation/parole</label>
-              <div className="checkbox-group">
-                <div className="checkbox-item">
-                  <input type="radio" id="probationYes" name="Probation_Parole" value="Yes" />
-                  <label htmlFor="probationYes">Yes</label>
-                </div>
-                <div className="checkbox-item">
-                  <input type="radio" id="probationNo" name="Probation_Parole" value="No" />
-                  <label htmlFor="probationNo">No</label>
-                </div>
-              </div>
-            </div>
-            
-            <div className="form-row">
-              <label>Any Issues with Bowel Control</label>
-              <div className="checkbox-group">
-                <div className="checkbox-item">
-                  <input type="radio" id="bowelYes" name="Bowel_Control" value="Yes" />
-                  <label htmlFor="bowelYes">Yes</label>
-                </div>
-                <div className="checkbox-item">
-                  <input type="radio" id="bowelNo" name="Bowel_Control" value="No" />
-                  <label htmlFor="bowelNo">No</label>
-                </div>
-              </div>
-            </div>
-            
-            <div className="form-row">
-              <label>Any Issues with Bladder Control</label>
-              <div className="checkbox-group">
-                <div className="checkbox-item">
-                  <input type="radio" id="bladderYes" name="Bladder_Control" value="Yes" />
-                  <label htmlFor="bladderYes">Yes</label>
-                </div>
-                <div className="checkbox-item">
-                  <input type="radio" id="bladderNo" name="Bladder_Control" value="No" />
-                  <label htmlFor="bladderNo">No</label>
-                </div>
-              </div>
-            </div>
-            
-            <div className="form-row">
-              <label>Diet Allergies</label>
-              <div className="checkbox-group">
-                <div className="checkbox-item">
-                  <input type="radio" id="dietYes" name="Diet_Allergies" value="Yes" />
-                  <label htmlFor="dietYes">Yes</label>
-                </div>
-                <div className="checkbox-item">
-                  <input type="radio" id="dietNo" name="Diet_Allergies" value="No" />
-                  <label htmlFor="dietNo">No</label>
-                </div>
-              </div>
-            </div>
-            
-            <div className="form-row">
-              <label>Medication Allergies</label>
-              <div className="checkbox-group">
-                <div className="checkbox-item">
-                  <input type="radio" id="medAllergyYes" name="Medication_Allergies" value="Yes" />
-                  <label htmlFor="medAllergyYes">Yes</label>
-                </div>
-                <div className="checkbox-item">
-                  <input type="radio" id="medAllergyNo" name="Medication_Allergies" value="No" />
-                  <label htmlFor="medAllergyNo">No</label>
-                </div>
-              </div>
-            </div>
-            
-            <div className="form-row">
-              <label htmlFor="otherAllergies">Any other Allergies</label>
-              <textarea id="otherAllergies" name="Other_Allergies"></textarea>
-            </div>
-          </div>
-
-          {/* File Upload Section */}
+          {/* File Upload */}
           <div className="form-section">
             <div className="section-title">Required Attachments</div>
             <p style={{marginBottom: '15px', color: '#555'}}>
-              Please attach: Discharge Summary/Instructions, Medication List (if available), Care Plan (if available)
+              Please attach: Discharge Summary/Instructions, Medication List, Care Plan
             </p>
             
             <div className="file-upload">
@@ -442,7 +247,7 @@ export default function ReferralForm() {
                 Choose Files to Upload
               </label>
               <p style={{marginTop: '10px', color: '#666', fontSize: '14px'}}>
-                Accepted formats: PDF, DOC, DOCX, JPG, PNG (Max 5MB per file)
+                Max 5MB per file
               </p>
               <div className="file-list">
                 {files.map((file, index) => (
@@ -461,54 +266,37 @@ export default function ReferralForm() {
             </div>
           </div>
 
-          {/* Referring Provider Signature */}
+          {/* Signature */}
           <div className="form-section">
             <div className="section-title">Referring Provider Signature / Date</div>
             
             <div className="form-row">
-              <label htmlFor="providerSignature">Referring Provider Signature <span className="required">*</span></label>
-              <input type="text" id="providerSignature" name="Provider_Signature" placeholder="Type full name as signature" required />
+              <label htmlFor="providerSignature">Provider Signature <span className="required">*</span></label>
+              <input type="text" id="providerSignature" name="Provider_Signature" placeholder="Type full name" required />
             </div>
             
             <div className="form-row">
               <label htmlFor="signatureDate">Date <span className="required">*</span></label>
               <input type="date" id="signatureDate" name="Signature_Date" required defaultValue={today} />
             </div>
-            
-            <div className="form-row">
-              <label htmlFor="printName">Print Name</label>
-              <input type="text" id="printName" name="Print_Name" />
-            </div>
-            
-            <div className="form-row">
-              <label htmlFor="facilityRep">Facility Representative (if different)</label>
-              <input type="text" id="facilityRep" name="Facility_Representative" />
-            </div>
-            
-            <div className="form-row">
-              <label htmlFor="facilityRepDate">Date</label>
-              <input type="date" id="facilityRepDate" name="Facility_Rep_Date" />
-            </div>
           </div>
 
-          {/* Submit Button */}
+          {/* Submit */}
           <div className="submit-section">
             <button type="submit" className="submit-btn" disabled={isSubmitting}>
               {isSubmitting ? 'Submitting...' : 'Submit Referral Form'}
             </button>
             <p style={{marginTop: '15px', color: '#666'}}>
-              Form will be sent to: <strong>info@bullale.com</strong>
+              Form will be sent to: <strong>Info@reliablerecuperative.org</strong>
             </p>
           </div>
 
-          {/* Instructions */}
           <div className="instructions">
             <h3>Instructions for Submission:</h3>
             <ul>
               <li>Complete all required fields marked with <span className="required">*</span></li>
-              <li>Attach necessary documents: Discharge Summary/Instructions, Medication List, Care Plan</li>
+              <li>Attach necessary documents</li>
               <li>Click "Submit Referral Form" to send via email</li>
-              <li>Alternatively, you can fax this form to (612) 444-8950</li>
             </ul>
           </div>
         </form>
