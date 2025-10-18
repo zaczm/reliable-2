@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './ReferralForm.css';
+import '../ReferralForm.css';
 
 export default function ReferralForm() {
   const [files, setFiles] = useState([]);
