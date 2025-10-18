@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../ReferralForm.css';
+import './ReferralForm.css';
 
 export default function ReferralForm() {
   const [files, setFiles] = useState([]);
@@ -8,6 +8,8 @@ export default function ReferralForm() {
   const handleFileChange = (e) => {
     const newFiles = Array.from(e.target.files);
     setFiles([...files, ...newFiles]);
+    // Reset input to allow selecting same file again
+    e.target.value = '';
   };
 
   const removeFile = (index) => {
@@ -28,12 +30,12 @@ export default function ReferralForm() {
 
     const formData = new FormData(e.target);
     
-    // Your Web3Forms access key
+    // Add Web3Forms access key
     formData.append('access_key', 'cc5f7691-cd9b-4c16-bb2e-f270495d69ed');
     
     // Add files to formData
     files.forEach((file) => {
-      formData.append('attachments', file);
+      formData.append('attachment', file);
     });
 
     try {
@@ -45,23 +47,29 @@ export default function ReferralForm() {
       const result = await response.json();
 
       if (result.success) {
-        alert('Referral form submitted successfully! We will contact you soon.');
+        alert('✅ Referral form submitted successfully! We will contact you soon.');
         e.target.reset();
         setFiles([]);
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        alert('Error submitting form. Please try again or email us directly at Info@reliablerecuperative.org');
+        alert('❌ Error submitting form. Please try again or email us directly at Info@reliablerecuperative.org');
       }
     } catch (error) {
-      alert('Error submitting form. Please try again or email us directly at Info@reliablerecuperative.org');
+      console.error('Submission error:', error);
+      alert('❌ Error submitting form. Please try again or email us directly at Info@reliablerecuperative.org');
     }
 
     setIsSubmitting(false);
   };
 
+  // Set today's date
+  const today = new Date().toISOString().split('T')[0];
+
   return (
     <div className="referral-container">
       <div className="referral-form-wrapper">
-        <div className="header">
+        <div className="form-header">
           <h1>Reliable Recuperative Care Referral Form</h1>
           <div className="contact-info">
             <p><strong>Fax:</strong> (612) 444-8950</p>
@@ -71,7 +79,7 @@ export default function ReferralForm() {
 
         <form onSubmit={handleSubmit}>
           {/* Member Information */}
-          <div className="section">
+          <div className="form-section">
             <div className="section-title">Member Information</div>
             
             <div className="form-row">
@@ -123,7 +131,7 @@ export default function ReferralForm() {
           </div>
 
           {/* Referral Source Information */}
-          <div className="section">
+          <div className="form-section">
             <div className="section-title">Referral Source Information</div>
             
             <div className="form-row">
@@ -193,7 +201,7 @@ export default function ReferralForm() {
           </div>
 
           {/* Member Eligibility Confirmation */}
-          <div className="section">
+          <div className="form-section">
             <div className="section-title">Member Eligibility Confirmation</div>
             
             <div className="form-group">
@@ -209,17 +217,17 @@ export default function ReferralForm() {
               
               <div className="checkbox-item" style={{marginBottom: '10px'}}>
                 <input type="checkbox" id="eligShortTerm" name="eligShortTerm" value="yes" />
-                <label htmlFor="eligShortTerm">Member requires short-term medical care (expected duration:</label>
-                <div className="inline-input" style={{marginLeft: '30px', marginTop: '5px'}}>
-                  <div className="checkbox-item">
-                    <input type="radio" id="duration21" name="duration" value="≤21 days" />
-                    <label htmlFor="duration21">≤21 days</label>
-                  </div>
-                  <div className="checkbox-item">
-                    <input type="radio" id="durationExt" name="duration" value="Extension" />
-                    <label htmlFor="durationExt">Requesting Extension:</label>
-                    <input type="text" id="extensionDays" name="extensionDays" placeholder="days" style={{width: '100px'}} />
-                  </div>
+                <label htmlFor="eligShortTerm">Member requires short-term medical care (expected duration):</label>
+              </div>
+              <div className="inline-input" style={{marginLeft: '30px', marginBottom: '10px'}}>
+                <div className="checkbox-item">
+                  <input type="radio" id="duration21" name="duration" value="≤21 days" />
+                  <label htmlFor="duration21">≤21 days</label>
+                </div>
+                <div className="checkbox-item">
+                  <input type="radio" id="durationExt" name="duration" value="Extension" />
+                  <label htmlFor="durationExt">Requesting Extension:</label>
+                  <input type="text" id="extensionDays" name="extensionDays" placeholder="days" style={{width: '100px', marginLeft: '5px'}} />
                 </div>
               </div>
               
@@ -231,7 +239,7 @@ export default function ReferralForm() {
           </div>
 
           {/* Medical Summary and Needs */}
-          <div className="section">
+          <div className="form-section">
             <div className="section-title">Medical Summary and Needs</div>
             
             <div className="form-row">
@@ -300,7 +308,7 @@ export default function ReferralForm() {
           </div>
 
           {/* Additional Patient History */}
-          <div className="section">
+          <div className="form-section">
             <div className="section-title">Additional Patient History</div>
             
             <div className="form-row">
@@ -408,7 +416,7 @@ export default function ReferralForm() {
           </div>
 
           {/* File Upload Section */}
-          <div className="section">
+          <div className="form-section">
             <div className="section-title">Required Attachments</div>
             <p style={{marginBottom: '15px', color: '#555'}}>
               Please attach: Discharge Summary/Instructions, Medication List (if available), Care Plan (if available)
@@ -447,7 +455,7 @@ export default function ReferralForm() {
           </div>
 
           {/* Referring Provider Signature */}
-          <div className="section">
+          <div className="form-section">
             <div className="section-title">Referring Provider Signature / Date</div>
             
             <div className="form-row">
@@ -457,7 +465,7 @@ export default function ReferralForm() {
             
             <div className="form-row">
               <label htmlFor="signatureDate">Date <span className="required">*</span></label>
-              <input type="date" id="signatureDate" name="signatureDate" required defaultValue={new Date().toISOString().split('T')[0]} />
+              <input type="date" id="signatureDate" name="signatureDate" required defaultValue={today} />
             </div>
             
             <div className="form-row">
@@ -482,7 +490,7 @@ export default function ReferralForm() {
               {isSubmitting ? 'Submitting...' : 'Submit Referral Form'}
             </button>
             <p style={{marginTop: '15px', color: '#666'}}>
-              Form will be sent to: <strong>info@bullale.com</strong>
+              Form will be sent to: <strong>Info@reliablerecuperative.org</strong>
             </p>
           </div>
 
@@ -493,6 +501,7 @@ export default function ReferralForm() {
               <li>Complete all required fields marked with <span className="required">*</span></li>
               <li>Attach necessary documents: Discharge Summary/Instructions, Medication List, Care Plan</li>
               <li>Click "Submit Referral Form" to send via email</li>
+              <li>Alternatively, you can fax this form to (612) 444-8950</li>
             </ul>
           </div>
         </form>
