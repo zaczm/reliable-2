@@ -9,7 +9,6 @@ export default function ReferralForm() {
 
   const handleFileChange = (e) => {
     const newFiles = Array.from(e.target.files);
-    // Check file sizes (EmailJS limit is 5MB per file)
     const validFiles = newFiles.filter(file => {
       if (file.size > 5 * 1024 * 1024) {
         alert(`File ${file.name} is too large. Maximum size is 5MB per file.`);
@@ -33,36 +32,52 @@ export default function ReferralForm() {
     return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
   };
 
+  // Convert file to base64
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      // Initialize EmailJS
       emailjs.init('tZ-VyVTP-kzl3VuRh');
 
-      // Get form data
       const formData = new FormData(formRef.current);
       const templateParams = {};
       
       for (let [key, value] of formData.entries()) {
-        templateParams[key] = value;
+        templateParams[key] = value || 'Not provided';
       }
 
-      // Add file information to email
+      // Handle file attachments
+      const attachments = [];
       if (files.length > 0) {
-        templateParams.attachments = files.map(f => f.name).join(', ');
-        templateParams.attachment_count = files.length;
-      } else {
-        templateParams.attachments = 'No files attached';
-        templateParams.attachment_count = 0;
+        for (const file of files) {
+          const base64 = await fileToBase64(file);
+          attachments.push({
+            name: file.name,
+            data: base64.split(',')[1], // Remove data:type;base64, prefix
+            type: file.type
+          });
+        }
       }
 
-      // Send email with EmailJS
+      // Send email with attachments
       const result = await emailjs.send(
         'service_qmoausf',
         'template_6fcdx5i',
-        templateParams
+        {
+          ...templateParams,
+          attachments: attachments.length > 0 ? JSON.stringify(attachments) : 'No files attached',
+          file_count: files.length
+        }
       );
 
       if (result.status === 200) {
@@ -187,157 +202,108 @@ export default function ReferralForm() {
                   <label htmlFor="md">MD</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="do" name="Provider_Type" value="DO" />
-                  <label htmlFor="do">DO</label>
-                </div>
-                <div className="checkbox-item">
-                  <input type="radio" id="aprn" name="Provider_Type" value="APRN" />
-                  <label htmlFor="aprn">APRN</label>
+                  <input type="radio" id="np" name="Provider_Type" value="NP" />
+                  <label htmlFor="np">NP</label>
                 </div>
                 <div className="checkbox-item">
                   <input type="radio" id="pa" name="Provider_Type" value="PA" />
                   <label htmlFor="pa">PA</label>
                 </div>
+                <div className="checkbox-item">
+                  <input type="radio" id="rn" name="Provider_Type" value="RN" />
+                  <label htmlFor="rn">RN</label>
+                </div>
               </div>
             </div>
             
             <div className="form-row">
-              <label htmlFor="contactPerson">Referring Contact Person</label>
-              <input type="text" id="contactPerson" name="Contact_Person" />
+              <label htmlFor="referringPhone">Referring Facility Phone <span className="required">*</span></label>
+              <input type="tel" id="referringPhone" name="Referring_Phone" required />
             </div>
             
             <div className="form-row">
-              <label htmlFor="contactPhone">Phone Number</label>
-              <input type="tel" id="contactPhone" name="Contact_Phone" />
-            </div>
-            
-            <div className="form-row">
-              <label htmlFor="faxEmail">Fax / Email (for discharge paperwork)</label>
-              <input type="text" id="faxEmail" name="Fax_Email" />
+              <label htmlFor="referringFax">Referring Facility Fax</label>
+              <input type="tel" id="referringFax" name="Referring_Fax" />
             </div>
           </div>
 
-          {/* Member Eligibility Confirmation */}
+          {/* Medical Information */}
           <div className="form-section">
-            <div className="section-title">Member Eligibility Confirmation</div>
-            
-            <div className="form-group">
-              <div className="checkbox-item" style={{marginBottom: '10px'}}>
-                <input type="checkbox" id="eligMA" name="Eligibility_Insurance" value="yes" />
-                <label htmlFor="eligMA">Member is with MA/ Hennepin Health/ UCare/ Blue Cross</label>
-              </div>
-              
-              <div className="checkbox-item" style={{marginBottom: '10px'}}>
-                <input type="checkbox" id="eligHomeless" name="Eligibility_Homeless" value="yes" />
-                <label htmlFor="eligHomeless">Member is experiencing homelessness or is unhoused</label>
-              </div>
-              
-              <div className="checkbox-item" style={{marginBottom: '10px'}}>
-                <input type="checkbox" id="eligShortTerm" name="Eligibility_Short_Term" value="yes" />
-                <label htmlFor="eligShortTerm">Member requires short-term medical care (expected duration):</label>
-              </div>
-              <div className="inline-input" style={{marginLeft: '30px', marginBottom: '10px'}}>
-                <div className="checkbox-item">
-                  <input type="radio" id="duration21" name="Duration" value="≤21 days" />
-                  <label htmlFor="duration21">≤21 days</label>
-                </div>
-                <div className="checkbox-item">
-                  <input type="radio" id="durationExt" name="Duration" value="Extension" />
-                  <label htmlFor="durationExt">Requesting Extension:</label>
-                  <input type="text" id="extensionDays" name="Extension_Days" placeholder="days" style={{width: '100px', marginLeft: '5px'}} />
-                </div>
-              </div>
-              
-              <div className="checkbox-item" style={{marginBottom: '10px'}}>
-                <input type="checkbox" id="eligADL" name="Eligibility_ADL" value="yes" />
-                <label htmlFor="eligADL">Member can independently perform Activities of Daily Living (ADLs)</label>
-              </div>
-            </div>
-          </div>
-
-          {/* Medical Summary and Needs */}
-          <div className="form-section">
-            <div className="section-title">Medical Summary and Needs</div>
+            <div className="section-title">Medical Information</div>
             
             <div className="form-row">
-              <label htmlFor="primaryDiagnosis">Primary Diagnosis (ICD-10) <span className="required">*</span></label>
-              <input type="text" id="primaryDiagnosis" name="Primary_Diagnosis" required />
+              <label htmlFor="primaryDiagnosis">Primary Diagnosis <span className="required">*</span></label>
+              <textarea id="primaryDiagnosis" name="Primary_Diagnosis" rows="3" required></textarea>
             </div>
             
             <div className="form-row">
               <label htmlFor="secondaryDiagnosis">Secondary Diagnosis (if applicable)</label>
-              <input type="text" id="secondaryDiagnosis" name="Secondary_Diagnosis" />
+              <textarea id="secondaryDiagnosis" name="Secondary_Diagnosis" rows="3"></textarea>
             </div>
             
             <div className="form-row">
-              <label htmlFor="reasonReferral">Reason for Referral to Recuperative Care <span className="required">*</span></label>
-              <textarea id="reasonReferral" name="Reason_for_Referral" required></textarea>
+              <label htmlFor="reasonForReferral">Reason for Referral <span className="required">*</span></label>
+              <textarea id="reasonForReferral" name="Reason_for_Referral" rows="4" required></textarea>
             </div>
             
             <div className="form-row">
-              <label>HPI/Assessment and Discharge Care Plan Attached?</label>
-              <div className="checkbox-item">
-                <input type="checkbox" id="carePlanAttached" name="Care_Plan_Attached" value="yes" />
-                <label htmlFor="carePlanAttached">Yes</label>
-              </div>
+              <label htmlFor="medications">Current Medications</label>
+              <textarea id="medications" name="Current_Medications" rows="4" placeholder="List all current medications"></textarea>
             </div>
             
             <div className="form-row">
-              <label>Medication Needs</label>
-              <div className="checkbox-item">
-                <input type="checkbox" id="selfAdminister" name="Self_Administer_Meds" value="yes" />
-                <label htmlFor="selfAdminister">Self-administer</label>
-              </div>
+              <label htmlFor="functionalStatus">Functional Status/Mobility</label>
+              <textarea id="functionalStatus" name="Functional_Status" rows="3"></textarea>
             </div>
             
             <div className="form-row">
-              <label>Wound Care Needed?</label>
+              <label>Needs Medical Equipment</label>
               <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="woundYes" name="Wound_Care" value="Yes" />
-                  <label htmlFor="woundYes">Yes</label>
+                  <input type="radio" id="equipmentYes" name="Needs_Equipment" value="Yes" />
+                  <label htmlFor="equipmentYes">Yes</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="woundNo" name="Wound_Care" value="No" />
-                  <label htmlFor="woundNo">No</label>
+                  <input type="radio" id="equipmentNo" name="Needs_Equipment" value="No" />
+                  <label htmlFor="equipmentNo">No</label>
                 </div>
               </div>
             </div>
             
             <div className="form-row">
-              <label>Follow-up Appointments Scheduled?</label>
-              <div className="checkbox-group">
-                <div className="checkbox-item">
-                  <input type="radio" id="apptYes" name="Appointments" value="Yes" />
-                  <label htmlFor="apptYes">Yes</label>
-                </div>
-                <div className="checkbox-item">
-                  <input type="radio" id="apptNo" name="Appointments" value="No" />
-                  <label htmlFor="apptNo">No</label>
-                </div>
-              </div>
-            </div>
-            
-            <div className="form-row">
-              <label htmlFor="apptList">If Yes, list:</label>
-              <textarea id="apptList" name="Appointment_List"></textarea>
+              <label htmlFor="equipmentDetails">If yes, specify equipment needed</label>
+              <textarea id="equipmentDetails" name="Equipment_Details" rows="2"></textarea>
             </div>
           </div>
 
-          {/* Additional Patient History */}
+          {/* Additional Clinical Information */}
           <div className="form-section">
-            <div className="section-title">Additional Patient History</div>
+            <div className="section-title">Additional Clinical Information</div>
             
             <div className="form-row">
-              <label>Physical aggression</label>
+              <label>Communicable Disease</label>
               <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="aggressionYes" name="Physical_Aggression" value="Yes" />
-                  <label htmlFor="aggressionYes">Yes</label>
+                  <input type="radio" id="diseaseYes" name="Communicable_Disease" value="Yes" />
+                  <label htmlFor="diseaseYes">Yes</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="aggressionNo" name="Physical_Aggression" value="No" />
-                  <label htmlFor="aggressionNo">No</label>
+                  <input type="radio" id="diseaseNo" name="Communicable_Disease" value="No" />
+                  <label htmlFor="diseaseNo">No</label>
+                </div>
+              </div>
+            </div>
+            
+            <div className="form-row">
+              <label>Behavioral Concerns</label>
+              <div className="checkbox-group">
+                <div className="checkbox-item">
+                  <input type="radio" id="behaviorYes" name="Behavioral_Concerns" value="Yes" />
+                  <label htmlFor="behaviorYes">Yes</label>
+                </div>
+                <div className="checkbox-item">
+                  <input type="radio" id="behaviorNo" name="Behavioral_Concerns" value="No" />
+                  <label htmlFor="behaviorNo">No</label>
                 </div>
               </div>
             </div>
