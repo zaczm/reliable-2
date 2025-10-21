@@ -1,14 +1,23 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import '../ReferralForm.css';
 
 export default function ReferralForm() {
   const [files, setFiles] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const formRef = useRef();
 
   const handleFileChange = (e) => {
     const newFiles = Array.from(e.target.files);
-    setFiles([...files, ...newFiles]);
+    // Check file sizes (EmailJS limit is 5MB per file)
+    const validFiles = newFiles.filter(file => {
+      if (file.size > 5 * 1024 * 1024) {
+        alert(`File ${file.name} is too large. Maximum size is 5MB per file.`);
+        return false;
+      }
+      return true;
+    });
+    setFiles([...files, ...validFiles]);
     e.target.value = '';
   };
 
@@ -29,16 +38,24 @@ export default function ReferralForm() {
     setIsSubmitting(true);
 
     try {
-      // Initialize EmailJS with your public key
+      // Initialize EmailJS
       emailjs.init('tZ-VyVTP-kzl3VuRh');
 
-      const form = e.target;
-      const formData = new FormData(form);
-      
-      // Convert FormData to object for EmailJS
+      // Get form data
+      const formData = new FormData(formRef.current);
       const templateParams = {};
+      
       for (let [key, value] of formData.entries()) {
         templateParams[key] = value;
+      }
+
+      // Add file information to email
+      if (files.length > 0) {
+        templateParams.attachments = files.map(f => f.name).join(', ');
+        templateParams.attachment_count = files.length;
+      } else {
+        templateParams.attachments = 'No files attached';
+        templateParams.attachment_count = 0;
       }
 
       // Send email with EmailJS
@@ -49,8 +66,8 @@ export default function ReferralForm() {
       );
 
       if (result.status === 200) {
-        alert('✅ Referral form submitted successfully!\n\nThank you for your submission.');
-        form.reset();
+        alert('✅ Referral form submitted successfully!\n\nThank you for your submission. We will review it shortly.');
+        formRef.current.reset();
         setFiles([]);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
@@ -77,7 +94,7 @@ export default function ReferralForm() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form ref={formRef} onSubmit={handleSubmit}>
           {/* Member Information */}
           <div className="form-section">
             <div className="section-title">Member Information</div>
@@ -415,22 +432,47 @@ export default function ReferralForm() {
             </div>
           </div>
 
-          {/* File Upload Note */}
+          {/* File Upload Section */}
           <div className="form-section">
             <div className="section-title">Required Attachments</div>
-            <div className="instructions" style={{marginTop: '0'}}>
-              <h3 style={{fontSize: '16px', marginBottom: '10px'}}>📎 Document Submission</h3>
-              <p style={{color: '#856404', lineHeight: '1.8'}}>
-                Please email the following documents separately to <strong>info@bullale.com</strong> after submitting this form:
+            <p style={{marginBottom: '15px', color: '#555'}}>
+              Please attach: Discharge Summary/Instructions, Medication List (if available), Care Plan (if available)
+            </p>
+            
+            <div className="file-upload">
+              <input 
+                type="file" 
+                id="fileInput" 
+                multiple 
+                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                onChange={handleFileChange}
+                style={{display: 'none'}}
+              />
+              <label htmlFor="fileInput" className="file-upload-label">
+                Choose Files to Upload
+              </label>
+              <p style={{marginTop: '10px', color: '#666', fontSize: '14px'}}>
+                Accepted formats: PDF, DOC, DOCX, JPG, PNG (Max 5MB per file)
               </p>
-              <ul style={{marginTop: '10px'}}>
-                <li>Discharge Summary or Instructions (from MD, DO, PA, or APRN)</li>
-                <li>Medication List (if available)</li>
-                <li>Care Plan (if available)</li>
-              </ul>
-              <p style={{color: '#856404', marginTop: '10px', fontStyle: 'italic'}}>
-                Reference the member name in your email subject line.
-              </p>
+              <div className="file-list">
+                {files.map((file, index) => (
+                  <div key={index} className="file-item">
+                    <span>{file.name} ({formatFileSize(file.size)})</span>
+                    <button 
+                      type="button" 
+                      onClick={() => removeFile(index)}
+                      className="remove-file-btn"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+              {files.length > 0 && (
+                <p style={{marginTop: '10px', color: '#28a745', fontSize: '14px', fontWeight: 'bold'}}>
+                  ✓ {files.length} file(s) ready to upload
+                </p>
+              )}
             </div>
           </div>
 
@@ -479,8 +521,8 @@ export default function ReferralForm() {
             <h3>Instructions for Submission:</h3>
             <ul>
               <li>Complete all required fields marked with <span className="required">*</span></li>
-              <li>Click "Submit Referral Form" to send your information</li>
-              <li>Email required documents separately to info@bullale.com</li>
+              <li>Attach necessary documents (Discharge Summary, Medication List, Care Plan)</li>
+              <li>Click "Submit Referral Form" to send via email</li>
               <li>Alternatively, you can fax this form and documents to (612) 444-8950</li>
             </ul>
           </div>
