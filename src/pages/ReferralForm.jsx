@@ -10,8 +10,8 @@ export default function ReferralForm() {
   const handleFileChange = (e) => {
     const newFiles = Array.from(e.target.files);
     const validFiles = newFiles.filter(file => {
-      if (file.size > 5 * 1024 * 1024) {
-        alert(`File ${file.name} is too large. Maximum size is 5MB per file.`);
+      if (file.size > 10 * 1024 * 1024) {
+        alert(`File ${file.name} is too large. Maximum size is 10MB per file.`);
         return false;
       }
       return true;
@@ -32,14 +32,29 @@ export default function ReferralForm() {
     return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
   };
 
-  // Convert file to base64
-  const fileToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
+  // Upload files to Google Drive via backend
+  const uploadToGoogleDrive = async (file, memberName) => {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('memberName', memberName);
+
+      // Call backend API
+      const response = await fetch('http://localhost:3001/api/upload-to-drive', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const data = await response.json();
+      return data.fileUrl; // Returns the shareable Google Drive link
+    } catch (error) {
+      console.error('Error uploading to Google Drive:', error);
+      throw error;
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -56,32 +71,34 @@ export default function ReferralForm() {
         templateParams[key] = value || 'Not provided';
       }
 
-      // Handle file attachments
-      const attachments = [];
+      // Upload files to Google Drive and get shareable links
+      let fileLinks = 'No files attached';
       if (files.length > 0) {
-        for (const file of files) {
-          const base64 = await fileToBase64(file);
-          attachments.push({
-            name: file.name,
-            data: base64.split(',')[1], // Remove data:type;base64, prefix
-            type: file.type
-          });
-        }
+        const uploadPromises = files.map(file => 
+          uploadToGoogleDrive(file, templateParams.Member_Name)
+        );
+        
+        const uploadedUrls = await Promise.all(uploadPromises);
+        
+        // Format file links for email
+        fileLinks = files.map((file, index) => 
+          `• ${file.name}: ${uploadedUrls[index]}`
+        ).join('\n');
       }
 
-      // Send email with attachments
+      // Send email with Google Drive links
       const result = await emailjs.send(
         'service_qmoausf',
         'template_6fcdx5i',
         {
           ...templateParams,
-          attachments: attachments.length > 0 ? JSON.stringify(attachments) : 'No files attached',
+          file_links: fileLinks,
           file_count: files.length
         }
       );
 
       if (result.status === 200) {
-        alert('✅ Referral form submitted successfully!\n\nThank you for your submission. We will review it shortly.');
+        alert('✅ Referral form submitted successfully!\n\nThank you for your submission. Files have been uploaded to Google Drive. We will review it shortly.');
         formRef.current.reset();
         setFiles([]);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -404,6 +421,9 @@ export default function ReferralForm() {
             <p style={{marginBottom: '15px', color: '#555'}}>
               Please attach: Discharge Summary/Instructions, Medication List (if available), Care Plan (if available)
             </p>
+            <p style={{marginBottom: '15px', color: '#28a745', fontWeight: 'bold'}}>
+              ✓ Files will be securely uploaded to Google Drive
+            </p>
             
             <div className="file-upload">
               <input 
@@ -418,7 +438,7 @@ export default function ReferralForm() {
                 Choose Files to Upload
               </label>
               <p style={{marginTop: '10px', color: '#666', fontSize: '14px'}}>
-                Accepted formats: PDF, DOC, DOCX, JPG, PNG (Max 5MB per file)
+                Accepted formats: PDF, DOC, DOCX, JPG, PNG (Max 10MB per file)
               </p>
               <div className="file-list">
                 {files.map((file, index) => (
@@ -436,7 +456,7 @@ export default function ReferralForm() {
               </div>
               {files.length > 0 && (
                 <p style={{marginTop: '10px', color: '#28a745', fontSize: '14px', fontWeight: 'bold'}}>
-                  ✓ {files.length} file(s) ready to upload
+                  ✓ {files.length} file(s) ready to upload to Google Drive
                 </p>
               )}
             </div>
@@ -475,10 +495,11 @@ export default function ReferralForm() {
           {/* Submit Button */}
           <div className="submit-section">
             <button type="submit" className="submit-btn" disabled={isSubmitting}>
-              {isSubmitting ? 'Submitting...' : 'Submit Referral Form'}
+              {isSubmitting ? 'Submitting & Uploading to Drive...' : 'Submit Referral Form'}
             </button>
             <p style={{marginTop: '15px', color: '#666'}}>
-              Form will be sent to: <strong>info@bullale.com</strong>
+              Form will be sent to: <strong>info@bullale.com</strong><br />
+              Files will be uploaded to: <strong>Google Drive</strong>
             </p>
           </div>
 
@@ -488,7 +509,7 @@ export default function ReferralForm() {
             <ul>
               <li>Complete all required fields marked with <span className="required">*</span></li>
               <li>Attach necessary documents (Discharge Summary, Medication List, Care Plan)</li>
-              <li>Click "Submit Referral Form" to send via email</li>
+              <li>Click "Submit Referral Form" to send via email and upload files to Google Drive</li>
               <li>Alternatively, you can fax this form and documents to (612) 444-8950</li>
             </ul>
           </div>

@@ -1,1 +1,13 @@
 /node_modules
+# Environment variables - NEVER COMMIT!
+.env
+.env.local
+
+# Service account keys - NEVER COMMIT!
+service-account-key.json
+*-service-account-*.json
+*.pem
+*.key
+
+# Backend
+backend/node_modules/
