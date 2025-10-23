@@ -63,6 +63,7 @@
   padding-top: 8px;
 }
 
+/* UPDATED: More visible borders for all input fields */
 input[type="text"],
 input[type="email"],
 input[type="date"],
@@ -71,15 +72,15 @@ textarea,
 select {
   width: 100%;
   padding: 10px;
-  border: 2px solid #9ca3af; /* Darker, more visible gray border */
+  border: 2px solid #999; /* Changed from 1px #ddd to 2px #999 - much more visible! */
   border-radius: 4px;
   font-size: 14px;
   font-family: inherit;
-  background-color: #ffffff;
-  transition: border-color 0.2s ease;
+  background-color: #ffffff; /* Ensures white background */
+  transition: border-color 0.2s ease; /* Smooth transition on focus */
 }
 
-/* Add focus state for better UX */
+/* UPDATED: Clear focus state */
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="date"]:focus,
@@ -87,7 +88,7 @@ input[type="tel"]:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: #2c5f7f; /* Blue border on focus (matches your theme) */
+  border-color: #2c5f7f; /* Blue border when focused */
   box-shadow: 0 0 0 3px rgba(44, 95, 127, 0.1); /* Subtle glow */
 }
 
