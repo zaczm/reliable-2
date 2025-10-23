@@ -71,10 +71,24 @@ textarea,
 select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 2px solid #9ca3af; /* Darker, more visible gray border */
   border-radius: 4px;
   font-size: 14px;
   font-family: inherit;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease;
+}
+
+/* Add focus state for better UX */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+input[type="tel"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #2c5f7f; /* Blue border on focus (matches your theme) */
+  box-shadow: 0 0 0 3px rgba(44, 95, 127, 0.1); /* Subtle glow */
 }
 
 textarea {
