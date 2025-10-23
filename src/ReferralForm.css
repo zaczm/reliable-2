@@ -1,3 +1,13 @@
+/* FORCE VISIBLE BORDERS - ADD THIS AT THE TOP */
+* input[type="text"],
+* input[type="email"],
+* input[type="date"],
+* input[type="tel"],
+* textarea,
+* select {
+  border: 3px solid #333 !important;
+  background-color: white !important;
+}
 .referral-container {
   background-color: #f5f5f5;
   padding: 20px;
