@@ -58,9 +58,16 @@ export default function ReferralForm() {
         ).join('\n');
       }
 
+      console.log('📧 Sending email with params:', {
+        service: 'service_ew1i6oe',
+        template: 'template_ngtmb6m',
+        fileCount: uploadedFiles.length,
+        hasFiles: uploadedFiles.length > 0
+      });
+
       // Send email with Uploadcare file links
       const result = await emailjs.send(
-        'service_qmoausf',
+        'service_ew1i6oe',
         'template_ngtmb6m',
         {
           ...templateParams,
@@ -69,6 +76,8 @@ export default function ReferralForm() {
           to_email: 'info@reliablerecuperative.org'
         }
       );
+
+      console.log('✅ EmailJS Response:', result);
 
       if (result.status === 200) {
         alert('✅ Referral form submitted successfully!\n\nThank you for your submission. We will review it shortly.');
@@ -80,11 +89,27 @@ export default function ReferralForm() {
         }
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        throw new Error('Submission failed');
+        throw new Error(`Submission failed with status: ${result.status}`);
       }
     } catch (error) {
-      console.error('Submission error:', error);
-      alert('❌ Error submitting form. Please try again or email us at info@reliablerecuperative.org');
+      console.error('❌ Submission error details:', {
+        error: error,
+        message: error.message,
+        text: error.text,
+        status: error.status
+      });
+      
+      let errorMessage = '❌ Error submitting form. ';
+      if (error.text === 'The public key is invalid' || error.status === 403) {
+        errorMessage += 'Invalid EmailJS public key. ';
+      } else if (error.text === 'Service ID or Template ID is invalid' || error.status === 404) {
+        errorMessage += 'Invalid service or template ID. ';
+      } else if (error.status === 400) {
+        errorMessage += 'Missing required fields or invalid template parameters. ';
+      }
+      errorMessage += 'Please try again or email us at info@reliablerecuperative.org';
+      
+      alert(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
