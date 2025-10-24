@@ -34,6 +34,282 @@ export default function ReferralForm() {
     setUploadedFiles(uploadedFiles.filter((_, i) => i !== index));
   };
 
+  const handlePrint = () => {
+    // Get all form values
+    const formData = new FormData(formRef.current);
+    const data = {};
+    for (let [key, value] of formData.entries()) {
+      data[key] = value || 'Not provided';
+    }
+
+    // Create printable content
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Referral Form - ${data.Member_Name || 'Patient'}</title>
+        <style>
+          @media print {
+            body { margin: 0; padding: 20px; }
+            .no-print { display: none !important; }
+          }
+          body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+          }
+          .header {
+            text-align: center;
+            border-bottom: 3px solid #2c5aa0;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+          }
+          .header h1 {
+            color: #2c5aa0;
+            margin: 0 0 10px 0;
+          }
+          .section {
+            margin-bottom: 30px;
+            page-break-inside: avoid;
+          }
+          .section-title {
+            background-color: #2c5aa0;
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 15px;
+          }
+          .field {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-left: 3px solid #2c5aa0;
+          }
+          .field-label {
+            font-weight: bold;
+            color: #2c5aa0;
+            margin-bottom: 5px;
+          }
+          .field-value {
+            color: #333;
+            padding-left: 10px;
+          }
+          .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            color: #666;
+            font-size: 14px;
+          }
+          .print-button {
+            background-color: #2c5aa0;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px auto;
+            display: block;
+          }
+          .print-button:hover {
+            background-color: #1d4070;
+          }
+        </style>
+      </head>
+      <body>
+        <button onclick="window.print()" class="print-button no-print">🖨️ Print This Form</button>
+        
+        <div class="header">
+          <h1>Reliable Recuperative Care</h1>
+          <h2>Referral Form</h2>
+          <p><strong>Fax:</strong> (612) 444-8950 | <strong>Email:</strong> info@reliablerecuperative.org</p>
+          <p><strong>Date Printed:</strong> ${new Date().toLocaleDateString()}</p>
+        </div>
+
+        <div class="section">
+          <div class="section-title">📋 MEMBER INFORMATION</div>
+          <div class="field">
+            <div class="field-label">Member Name:</div>
+            <div class="field-value">${data.Member_Name}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Date of Birth:</div>
+            <div class="field-value">${data.Date_of_Birth}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">MHCP Member ID:</div>
+            <div class="field-value">${data.MHCP_Member_ID}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Gender:</div>
+            <div class="field-value">${data.Gender}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Phone:</div>
+            <div class="field-value">${data.Phone}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Email:</div>
+            <div class="field-value">${data.Email}</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">🏥 REFERRAL SOURCE INFORMATION</div>
+          <div class="field">
+            <div class="field-label">Referring Facility Name:</div>
+            <div class="field-value">${data.Facility_Name}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Facility Type:</div>
+            <div class="field-value">${data.Facility_Type}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Referring Provider Name:</div>
+            <div class="field-value">${data.Provider_Name}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Provider Type:</div>
+            <div class="field-value">${data.Provider_Type}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Referring Phone:</div>
+            <div class="field-value">${data.Referring_Phone}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Referring Fax:</div>
+            <div class="field-value">${data.Referring_Fax}</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">⚕️ MEDICAL INFORMATION</div>
+          <div class="field">
+            <div class="field-label">Primary Diagnosis:</div>
+            <div class="field-value">${data.Primary_Diagnosis}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Secondary Diagnosis:</div>
+            <div class="field-value">${data.Secondary_Diagnosis}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Reason for Referral:</div>
+            <div class="field-value">${data.Reason_for_Referral}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Current Medications:</div>
+            <div class="field-value">${data.Current_Medications}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Functional Status/Mobility:</div>
+            <div class="field-value">${data.Functional_Status}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Needs Medical Equipment:</div>
+            <div class="field-value">${data.Needs_Equipment}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Equipment Details:</div>
+            <div class="field-value">${data.Equipment_Details}</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">🩺 ADDITIONAL CLINICAL INFORMATION</div>
+          <div class="field">
+            <div class="field-label">Communicable Disease:</div>
+            <div class="field-value">${data.Communicable_Disease}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Behavioral Concerns:</div>
+            <div class="field-value">${data.Behavioral_Concerns}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Substance Use:</div>
+            <div class="field-value">${data.Substance_Use}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Probation/Parole:</div>
+            <div class="field-value">${data.Probation_Parole}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Bowel Control Issues:</div>
+            <div class="field-value">${data.Bowel_Control}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Bladder Control Issues:</div>
+            <div class="field-value">${data.Bladder_Control}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Diet Allergies:</div>
+            <div class="field-value">${data.Diet_Allergies}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Medication Allergies:</div>
+            <div class="field-value">${data.Medication_Allergies}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Other Allergies:</div>
+            <div class="field-value">${data.Other_Allergies}</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">✍️ SIGNATURE INFORMATION</div>
+          <div class="field">
+            <div class="field-label">Provider Signature:</div>
+            <div class="field-value">${data.Provider_Signature}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Signature Date:</div>
+            <div class="field-value">${data.Signature_Date}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Print Name:</div>
+            <div class="field-value">${data.Print_Name}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Facility Representative:</div>
+            <div class="field-value">${data.Facility_Representative}</div>
+          </div>
+          <div class="field">
+            <div class="field-label">Facility Rep Date:</div>
+            <div class="field-value">${data.Facility_Rep_Date}</div>
+          </div>
+        </div>
+
+        ${uploadedFiles.length > 0 ? `
+        <div class="section">
+          <div class="section-title">📎 ATTACHED FILES</div>
+          ${uploadedFiles.map((file, index) => `
+            <div class="field">
+              <div class="field-label">File ${index + 1}:</div>
+              <div class="field-value">${file.name} (${formatFileSize(file.size)})</div>
+            </div>
+          `).join('')}
+        </div>
+        ` : ''}
+
+        <div class="footer">
+          <strong>Reliable Recuperative Care</strong><br>
+          796 Capitol Heights Saint Paul, MN 55103<br>
+          Phone: (612) 998-4449 | Fax: (612) 444-8950<br>
+          Email: info@reliablerecuperative.org
+        </div>
+
+        <button onclick="window.print()" class="print-button no-print">🖨️ Print This Form</button>
+      </body>
+      </html>
+    `);
+    printWindow.document.close();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -496,11 +772,32 @@ export default function ReferralForm() {
             </div>
           </div>
 
-          {/* Submit Button */}
+          {/* Submit Section */}
           <div className="submit-section">
-            <button type="submit" className="submit-btn" disabled={isSubmitting}>
-              {isSubmitting ? 'Submitting...' : 'Submit Referral Form'}
-            </button>
+            <div style={{display: 'flex', gap: '15px', justifyContent: 'center', flexWrap: 'wrap'}}>
+              <button type="submit" className="submit-btn" disabled={isSubmitting}>
+                {isSubmitting ? 'Submitting...' : 'Submit Referral Form'}
+              </button>
+              <button 
+                type="button" 
+                onClick={handlePrint}
+                className="print-btn"
+                style={{
+                  padding: '15px 30px',
+                  fontSize: '18px',
+                  backgroundColor: '#6c757d',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.3s'
+                }}
+                onMouseOver={(e) => e.target.style.backgroundColor = '#5a6268'}
+                onMouseOut={(e) => e.target.style.backgroundColor = '#6c757d'}
+              >
+                🖨️ Print Form
+              </button>
+            </div>
             <p style={{marginTop: '15px', color: '#666'}}>
               Form will be sent to: <strong>info@reliablerecuperative.org</strong>
             </p>
