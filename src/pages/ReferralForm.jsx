@@ -12,7 +12,8 @@ export default function ReferralForm() {
     setIsSubmitting(true);
 
     try {
-      emailjs.init('tZ-VyVTP-kzl3VuRh');
+      emailjs.init('xcHnyHWnOHp0mXian'); // ✅ Your EmailJS public key
+
       const formData = new FormData(formRef.current);
       const templateParams = {};
 
@@ -28,7 +29,7 @@ export default function ReferralForm() {
 
       const result = await emailjs.send(
         'service_qmoausf',
-        'template_6fcdx5i',
+        'template_ngtmb6m',
         {
           ...templateParams,
           file_links: fileLinks,
@@ -63,7 +64,7 @@ export default function ReferralForm() {
         </div>
 
         <form ref={formRef} onSubmit={handleSubmit}>
-          {/* ... All your existing form sections stay the same ... */}
+          {/* 🔁 All your existing form sections stay the same */}
 
           {/* ✅ Uploadcare File Upload Section */}
           <div className="form-section">
