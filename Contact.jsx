@@ -1,207 +1,183 @@
-import { useState, useRef } from 'react';
-import emailjs from '@emailjs/browser';
-import '../Contact.css';
+import React from 'react';
 
 export default function Contact() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const formRef = useRef();
+  // Google Maps link for the address
+  const address = "796 Capitol Heights Saint Paul, MN 55103";
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  const pageStyle = {
+    minHeight: '80vh',
+    backgroundColor: '#f5f5f0',
+    padding: '60px 20px'
+  };
 
-    try {
-      // Initialize EmailJS
-      emailjs.init('xcHnyHWnOHp0mXian');
+  const containerStyle = {
+    maxWidth: '1200px',
+    margin: '0 auto'
+  };
 
-      const formData = new FormData(formRef.current);
-      const templateParams = {
-        from_name: formData.get('name') || 'Not provided',
-        from_email: formData.get('email') || 'Not provided',
-        subject: formData.get('subject') || 'No subject',
-        message: formData.get('message') || 'No message',
-        to_email: 'info@reliablerecuperative.org'
-      };
+  const titleStyle = {
+    fontSize: '3rem',
+    fontWeight: 'bold',
+    color: '#2d4a5a',
+    textAlign: 'center',
+    marginBottom: '60px'
+  };
 
-      // Send email
-      const result = await emailjs.send(
-        'service_ew1i6oe',
-        'template_qls35gm', // You might want to create a separate template for contact form
-        templateParams
-      );
+  const cardsContainerStyle = {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+    gap: '30px',
+    padding: '0 20px'
+  };
 
-      if (result.status === 200) {
-        alert('✅ Message sent successfully!\n\nThank you for contacting us. We will get back to you soon.');
-        formRef.current.reset();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        throw new Error('Submission failed');
-      }
-    } catch (error) {
-      console.error('❌ Submission error:', error);
-      alert('❌ Error sending message. Please try calling us at (612) 998-4449 or email info@reliablerecuperative.org');
-    } finally {
-      setIsSubmitting(false);
-    }
+  const cardStyle = {
+    backgroundColor: 'white',
+    borderRadius: '20px',
+    padding: '40px 30px',
+    textAlign: 'center',
+    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+    transition: 'all 0.3s ease',
+    cursor: 'default'
+  };
+
+  const clickableCardStyle = {
+    ...cardStyle,
+    cursor: 'pointer',
+    textDecoration: 'none',
+    display: 'block',
+    color: 'inherit'
+  };
+
+  const iconStyle = {
+    fontSize: '3rem',
+    marginBottom: '20px'
+  };
+
+  const cardTitleStyle = {
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    color: '#2d4a5a',
+    marginBottom: '15px'
+  };
+
+  const cardTextStyle = {
+    fontSize: '1.1rem',
+    color: '#666',
+    marginBottom: '10px'
+  };
+
+  const cardSubtextStyle = {
+    fontSize: '0.95rem',
+    color: '#999',
+    fontStyle: 'italic'
   };
 
   return (
-    <div className="contact-page">
-      {/* Hero Section */}
-      <section className="contact-hero">
-        <div className="container">
-          <h1>Book A Bed & Connect With Our Intake Team</h1>
-          <p className="hero-subtitle">
-            Start your recovery journey today. Our team is ready to guide you through every step, 
-            ensuring your comfort, safety, and personalized care.
-          </p>
-          <div className="contact-methods">
-            <a href="tel:6129984449" className="contact-method-card">
-              <div className="icon">📞</div>
-              <h3>Phone</h3>
-              <p className="contact-value">(612) 998-4449</p>
-              <p className="contact-desc">Call us for immediate assistance</p>
-            </a>
-            <a href="mailto:info@reliablerecuperative.org" className="contact-method-card">
-              <div className="icon">📧</div>
-              <h3>Email</h3>
-              <p className="contact-value">info@reliablerecuperative.org</p>
-              <p className="contact-desc">Send us a message anytime</p>
-            </a>
-            <a href="https://maps.google.com/?q=796+Capitol+Heights+Saint+Paul+MN+55103" target="_blank" rel="noopener noreferrer" className="contact-method-card">
-              <div className="icon">📍</div>
-              <h3>Location</h3>
-              <p className="contact-value">796 Capitol Heights Saint Paul</p>
-              <p className="contact-value">MN 55103</p>
-              <p className="contact-desc">Visit us at our facility</p>
-            </a>
-            <div className="contact-method-card">
-              <div className="icon">🕐</div>
-              <h3>Hours</h3>
-              <p className="contact-value">24/7 Care Available</p>
-              <p className="contact-desc">We're here when you need us</p>
-            </div>
-          </div>
+    <div style={pageStyle}>
+      <div style={containerStyle}>
+        <h1 style={titleStyle}>Contact Information</h1>
+        
+        <div style={cardsContainerStyle}>
+          {/* Phone Card */}
           <a 
-            href="#contact-form" 
-            className="cta-button"
-            style={{
-              display: 'inline-block',
-              marginTop: '30px',
-              padding: '15px 40px',
-              backgroundColor: '#c8a882',
-              color: 'white',
-              textDecoration: 'none',
-              borderRadius: '25px',
-              fontSize: '18px',
-              fontWeight: 'bold',
-              transition: 'all 0.3s'
+            href="tel:6129984449"
+            style={clickableCardStyle}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.boxShadow = '0 6px 25px rgba(0, 0, 0, 0.15)';
             }}
-            onMouseOver={(e) => e.target.style.backgroundColor = '#b89872'}
-            onMouseOut={(e) => e.target.style.backgroundColor = '#c8a882'}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            }}
           >
-            Contact Intake Team
+            <div style={iconStyle}>📞</div>
+            <h3 style={cardTitleStyle}>Phone</h3>
+            <p style={cardTextStyle}>612-998-4449</p>
+            <p style={cardSubtextStyle}>Call us for immediate assistance</p>
           </a>
-        </div>
-      </section>
 
-      {/* Contact Form Section */}
-      <section id="contact-form" className="contact-form-section">
-        <div className="container">
-          <div className="form-container">
-            <h2>Send Us a Message</h2>
-            <p className="form-subtitle">
-              Fill out the form below and we'll get back to you as soon as possible. 
-              We're here to answer any questions you may have about our services.
-            </p>
-            
-            <form ref={formRef} onSubmit={handleSubmit} className="contact-form">
-              <div className="form-group">
-                <label htmlFor="name">Name <span className="required">*</span></label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  name="name" 
-                  required 
-                  placeholder="Your full name"
-                />
-              </div>
+          {/* Email Card */}
+          <a 
+            href="mailto:info@reliablerecuperative.org"
+            style={clickableCardStyle}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.boxShadow = '0 6px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            }}
+          >
+            <div style={iconStyle}>📧</div>
+            <h3 style={cardTitleStyle}>Email</h3>
+            <p style={cardTextStyle}>info@reliablerecuperative.com</p>
+            <p style={cardSubtextStyle}>Send us a message anytime</p>
+          </a>
 
-              <div className="form-group">
-                <label htmlFor="email">Email <span className="required">*</span></label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
-                  required 
-                  placeholder="your.email@example.com"
-                />
-              </div>
+          {/* Location Card - CLICKABLE! */}
+          <a 
+            href={googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={clickableCardStyle}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.boxShadow = '0 6px 25px rgba(0, 0, 0, 0.15)';
+              e.currentTarget.style.backgroundColor = '#e8f4f8';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+              e.currentTarget.style.backgroundColor = 'white';
+            }}
+          >
+            <div style={iconStyle}>📍</div>
+            <h3 style={cardTitleStyle}>Location</h3>
+            <p style={cardTextStyle}>796 Capitol Heights Saint Paul<br />MN 55103</p>
+            <p style={cardSubtextStyle}>Visit us at our facility<br />Click to open in maps</p>
+          </a>
 
-              <div className="form-group">
-                <label htmlFor="subject">Subject</label>
-                <input 
-                  type="text" 
-                  id="subject" 
-                  name="subject" 
-                  placeholder="What is this regarding?"
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="message">Message <span className="required">*</span></label>
-                <textarea 
-                  id="message" 
-                  name="message" 
-                  rows="6" 
-                  required
-                  placeholder="Tell us how we can help you..."
-                ></textarea>
-              </div>
-
-              <button 
-                type="submit" 
-                className="submit-button"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
-              </button>
-            </form>
+          {/* Hours Card */}
+          <div 
+            style={cardStyle}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.boxShadow = '0 6px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            }}
+          >
+            <div style={iconStyle}>🕐</div>
+            <h3 style={cardTitleStyle}>Hours</h3>
+            <p style={cardTextStyle}>24/7 Care Available</p>
+            <p style={cardSubtextStyle}>We're here when you need us</p>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Map Section (Optional) */}
-      <section className="map-section">
-        <div className="container">
-          <h2>Find Us</h2>
-          <div className="map-container">
-            <iframe
-              title="Reliable Recuperative Care Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2821.5!2d-93.1!3d44.95!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDTCsDU3JzAwLjAiTiA5M8KwMDYnMDAuMCJX!5e0!3m2!1sen!2sus!4v1234567890"
-              width="100%"
-              height="450"
-              style={{ border: 0, borderRadius: '10px' }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
-          </div>
-        </div>
-      </section>
-
-      {/* Emergency Contact */}
-      <section className="emergency-contact">
-        <div className="container">
-          <div className="emergency-card">
-            <h2>🚨 Need Immediate Assistance?</h2>
-            <p>Our intake team is available 24/7 to help you</p>
-            <a href="tel:6129984449" className="emergency-button">
-              Call Now: (612) 998-4449
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* Responsive styles */}
+      <style>{`
+        @media (max-width: 768px) {
+          h1 {
+            font-size: 2rem !important;
+          }
+          
+          .cards-container {
+            grid-template-columns: 1fr !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          h1 {
+            font-size: 1.75rem !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
