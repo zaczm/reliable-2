@@ -7,109 +7,101 @@ export default function Header() {
     position: 'sticky',
     top: 0,
     zIndex: 1000,
-    background: 'white',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)'
   };
 
-  const topBarStyle = {
-    background: 'linear-gradient(135deg, #2c5aa0 0%, #1a3a6b 100%)',
-    color: 'white',
-    padding: '12px 0'
-  };
-
-  const topBarContentStyle = {
+  // TOP LINE - Logo and Contact Info
+  const topLineStyle = {
+    backgroundColor: '#2d4a5a',
+    padding: '15px 40px',
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '0 30px',
-    maxWidth: '1200px',
-    margin: '0 auto',
-    flexWrap: 'wrap',
-    gap: '15px'
+    alignItems: 'center'
   };
 
   const logoStyle = {
-    height: '65px',
+    height: '60px',
     width: 'auto'
   };
 
-  const phoneStyle = {
-    color: 'white',
-    textDecoration: 'none',
-    fontSize: '1.15rem',
-    fontWeight: '600',
-    padding: '8px 20px',
-    borderRadius: '25px',
-    background: 'rgba(255, 255, 255, 0.1)',
-    border: '2px solid rgba(255, 255, 255, 0.2)',
-    transition: 'all 0.3s'
-  };
-
-  const navStyle = {
-    backgroundColor: '#2c5aa0',
-    borderTop: '3px solid rgba(255, 255, 255, 0.15)',
-    padding: '12px 20px'
-  };
-
-  const navMenuStyle = {
-    listStyle: 'none',
+  const contactInfoStyle = {
     display: 'flex',
-    justifyContent: 'center',
+    gap: '25px',
     alignItems: 'center',
-    gap: '5px',
-    margin: 0,
-    padding: 0,
-    flexWrap: 'wrap',
-    maxWidth: '1200px',
-    marginLeft: 'auto',
-    marginRight: 'auto'
+    color: 'white'
+  };
+
+  const contactItemStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    fontSize: '0.95rem',
+    fontWeight: '500',
+    color: 'white',
+    textDecoration: 'none'
+  };
+
+  // BOTTOM LINE - Navigation
+  const navLineStyle = {
+    backgroundColor: '#2d4a5a',
+    borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+    padding: '15px 40px',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    gap: '10px'
   };
 
   const navLinkStyle = {
     color: 'white',
     textDecoration: 'none',
     fontSize: '1rem',
-    padding: '12px 20px',
+    padding: '10px 20px',
     borderRadius: '8px',
     transition: 'all 0.3s',
-    display: 'inline-block',
     fontWeight: '500',
-    background: 'rgba(255, 255, 255, 0.05)'
+    backgroundColor: 'transparent'
   };
 
-  const boldLinkStyle = {
+  const boldNavLinkStyle = {
     ...navLinkStyle,
     fontWeight: 'bold',
     fontSize: '1.05rem',
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    border: '2px solid rgba(255, 255, 255, 0.25)'
+    border: '2px solid rgba(255, 255, 255, 0.2)'
   };
 
   const referralButtonStyle = {
-    ...boldLinkStyle,
-    background: 'linear-gradient(135deg, #d4e157 0%, #aed581 100%)',
-    color: '#1a3a6b',
+    backgroundColor: '#c41e3a',
+    color: 'white',
+    padding: '12px 30px',
+    borderRadius: '50px',
+    textDecoration: 'none',
+    fontSize: '1rem',
     fontWeight: 'bold',
-    fontSize: '1.1rem',
-    padding: '12px 25px',
-    border: '3px solid #c0ca33',
-    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
-    textTransform: 'uppercase',
-    letterSpacing: '0.5px'
+    textTransform: 'lowercase',
+    transition: 'all 0.3s',
+    border: 'none',
+    boxShadow: '0 4px 15px rgba(196, 30, 58, 0.4)',
+    display: 'inline-block'
   };
 
   const getNavLinkStyle = (path, isBold = false, isReferral = false) => {
     const isActive = location.pathname === path;
-    let style = isBold ? { ...boldLinkStyle } : { ...navLinkStyle };
     
     if (isReferral) {
-      style = { ...referralButtonStyle };
+      return {
+        ...referralButtonStyle,
+        backgroundColor: isActive ? '#a01828' : '#c41e3a'
+      };
     }
+    
+    let style = isBold ? { ...boldNavLinkStyle } : { ...navLinkStyle };
     
     if (isActive) {
       style = {
         ...style,
-        backgroundColor: isReferral ? '#afb42b' : 'rgba(255, 255, 255, 0.2)'
+        backgroundColor: 'rgba(255, 255, 255, 0.15)'
       };
     }
     
@@ -118,52 +110,206 @@ export default function Header() {
 
   return (
     <header style={headerStyle}>
-      {/* Top Bar */}
-      <div style={topBarStyle}>
-        <div style={topBarContentStyle}>
-          <div>
-            <Link to="/">
-              <img src="/logo.png" alt="Reliable Recuperative Care" style={logoStyle} />
-            </Link>
-          </div>
-          <div>
-            <a href="tel:6129984449" style={phoneStyle}>
-              📞 Call now to reserve a bed: 612-998-4449
-            </a>
-          </div>
+      {/* TOP LINE - Logo and Contact Info */}
+      <div style={topLineStyle}>
+        {/* Logo on left */}
+        <Link to="/">
+          <img 
+            src="/logo1.png" 
+            alt="Reliable Recuperative Care" 
+            style={logoStyle}
+            onError={(e) => {
+              e.target.style.display = 'none';
+              const parent = e.target.parentElement;
+              if (parent && !parent.querySelector('h2')) {
+                const heading = document.createElement('h2');
+                heading.style.color = 'white';
+                heading.style.margin = '0';
+                heading.textContent = 'Reliable Recuperative Care';
+                parent.appendChild(heading);
+              }
+            }}
+          />
+        </Link>
+
+        {/* Contact info on right */}
+        <div style={contactInfoStyle}>
+          <a 
+            href="tel:6129984449" 
+            style={contactItemStyle}
+            onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
+            onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+          >
+            📞 Call now to reserve a bed: 612-998-4449
+          </a>
+          <span style={{color: 'rgba(255, 255, 255, 0.3)'}}>|</span>
+          <a 
+            href="mailto:info@reliablerecuperative.org" 
+            style={contactItemStyle}
+            onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
+            onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+          >
+            📧 info@reliablerecuperative.org
+          </a>
+          <span style={{color: 'rgba(255, 255, 255, 0.3)'}}>|</span>
+          <span style={contactItemStyle}>
+            📍 796 Capitol Heights Saint Paul, MN 55103
+          </span>
         </div>
       </div>
 
-      {/* Main Navigation */}
-      <nav style={navStyle}>
-        <ul style={navMenuStyle}>
-          <li style={{ margin: 0 }}>
-            <Link to="/" style={getNavLinkStyle('/')}>
-              Home
-            </Link>
-          </li>
-          <li style={{ margin: 0 }}>
-            <Link to="/about" style={getNavLinkStyle('/about')}>
-              About Us
-            </Link>
-          </li>
-          <li style={{ margin: 0 }}>
-            <Link to="/admission" style={getNavLinkStyle('/admission', true)}>
-              Admission and Referral
-            </Link>
-          </li>
-          <li style={{ margin: 0 }}>
-            <Link to="/contact" style={getNavLinkStyle('/contact')}>
-              Contact
-            </Link>
-          </li>
-          <li style={{ margin: 0 }}>
-            <Link to="/referral" style={getNavLinkStyle('/referral', true, true)}>
-              Referral form
-            </Link>
-          </li>
-        </ul>
+      {/* BOTTOM LINE - Navigation */}
+      <nav style={navLineStyle}>
+        <Link 
+          to="/" 
+          style={getNavLinkStyle('/')}
+          onMouseOver={(e) => {
+            if (location.pathname !== '/') {
+              e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            }
+          }}
+          onMouseOut={(e) => {
+            if (location.pathname !== '/') {
+              e.target.style.backgroundColor = 'transparent';
+            }
+          }}
+        >
+          Home
+        </Link>
+
+        <Link 
+          to="/about" 
+          style={getNavLinkStyle('/about')}
+          onMouseOver={(e) => {
+            if (location.pathname !== '/about') {
+              e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            }
+          }}
+          onMouseOut={(e) => {
+            if (location.pathname !== '/about') {
+              e.target.style.backgroundColor = 'transparent';
+            }
+          }}
+        >
+          About Us
+        </Link>
+
+        <Link 
+          to="/admission" 
+          style={getNavLinkStyle('/admission', true)}
+          onMouseOver={(e) => {
+            if (location.pathname !== '/admission') {
+              e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
+            }
+          }}
+          onMouseOut={(e) => {
+            if (location.pathname !== '/admission') {
+              e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            }
+          }}
+        >
+          Admission and Referral
+        </Link>
+
+        <Link 
+          to="/contact" 
+          style={getNavLinkStyle('/contact')}
+          onMouseOver={(e) => {
+            if (location.pathname !== '/contact') {
+              e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            }
+          }}
+          onMouseOut={(e) => {
+            if (location.pathname !== '/contact') {
+              e.target.style.backgroundColor = 'transparent';
+            }
+          }}
+        >
+          Contact
+        </Link>
+
+        <Link 
+          to="/referral" 
+          style={getNavLinkStyle('/referral', false, true)}
+          onMouseOver={(e) => {
+            e.target.style.backgroundColor = '#a01828';
+            e.target.style.transform = 'translateY(-2px)';
+            e.target.style.boxShadow = '0 6px 20px rgba(196, 30, 58, 0.5)';
+          }}
+          onMouseOut={(e) => {
+            e.target.style.backgroundColor = location.pathname === '/referral' ? '#a01828' : '#c41e3a';
+            e.target.style.transform = 'translateY(0)';
+            e.target.style.boxShadow = '0 4px 15px rgba(196, 30, 58, 0.4)';
+          }}
+        >
+          Referral form
+        </Link>
       </nav>
+
+      {/* Responsive styles */}
+      <style>{`
+        @media (max-width: 1200px) {
+          header > div:first-child > div {
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-end;
+          }
+          
+          header > div:first-child > div > a,
+          header > div:first-child > div > span {
+            font-size: 0.85rem;
+          }
+        }
+        
+        @media (max-width: 768px) {
+          header > div:first-child {
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+          }
+          
+          header > div:first-child > div {
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+          }
+          
+          header > div:first-child > div > span[style*="rgba"] {
+            display: none;
+          }
+          
+          header nav {
+            justify-content: center;
+            flex-wrap: wrap;
+          }
+          
+          header nav a {
+            font-size: 0.9rem;
+            padding: 8px 15px;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          header img {
+            height: 50px !important;
+          }
+          
+          header > div:first-child {
+            padding: 15px 20px !important;
+          }
+          
+          header nav {
+            padding: 15px 20px !important;
+            flex-direction: column;
+            gap: 10px;
+          }
+          
+          header nav a {
+            width: 100%;
+            text-align: center;
+          }
+        }
+      `}</style>
     </header>
   );
 }
