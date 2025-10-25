@@ -35,14 +35,12 @@ export default function ReferralForm() {
   };
 
   const handlePrint = () => {
-    // Get all form values
     const formData = new FormData(formRef.current);
     const data = {};
     for (let [key, value] of formData.entries()) {
       data[key] = value || 'Not provided';
     }
 
-    // Create printable content
     const printWindow = window.open('', '_blank');
     printWindow.document.write(`
       <!DOCTYPE html>
@@ -128,165 +126,76 @@ export default function ReferralForm() {
         <div class="header">
           <h1>Reliable Recuperative Care</h1>
           <h2>Referral Form</h2>
-          <p><strong>Fax:</strong> (612) 444-8950 | <strong>Email:</strong> info@reliablerecuperative.org</p>
+          <p><strong>Fax:</strong> (612) 444-8950 | <strong>Email:</strong> Info@reliablerecuperative.org</p>
           <p><strong>Date Printed:</strong> ${new Date().toLocaleDateString()}</p>
         </div>
 
         <div class="section">
-          <div class="section-title">📋 MEMBER INFORMATION</div>
-          <div class="field">
-            <div class="field-label">Member Name:</div>
-            <div class="field-value">${data.Member_Name}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Date of Birth:</div>
-            <div class="field-value">${data.Date_of_Birth}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">MHCP Member ID:</div>
-            <div class="field-value">${data.MHCP_Member_ID}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Gender:</div>
-            <div class="field-value">${data.Gender}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Phone:</div>
-            <div class="field-value">${data.Phone}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Email:</div>
-            <div class="field-value">${data.Email}</div>
-          </div>
+          <div class="section-title">Member Information</div>
+          <div class="field"><div class="field-label">Member Full Name:</div><div class="field-value">${data.Member_Name}</div></div>
+          <div class="field"><div class="field-label">Date of Birth:</div><div class="field-value">${data.Date_of_Birth}</div></div>
+          <div class="field"><div class="field-label">MHCP Member ID:</div><div class="field-value">${data.MHCP_Member_ID}</div></div>
+          <div class="field"><div class="field-label">Gender:</div><div class="field-value">${data.Gender}</div></div>
+          <div class="field"><div class="field-label">Phone Number:</div><div class="field-value">${data.Phone}</div></div>
+          <div class="field"><div class="field-label">Email (if available):</div><div class="field-value">${data.Email}</div></div>
         </div>
 
         <div class="section">
-          <div class="section-title">🏥 REFERRAL SOURCE INFORMATION</div>
-          <div class="field">
-            <div class="field-label">Referring Facility Name:</div>
-            <div class="field-value">${data.Facility_Name}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Facility Type:</div>
-            <div class="field-value">${data.Facility_Type}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Referring Provider Name:</div>
-            <div class="field-value">${data.Provider_Name}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Provider Type:</div>
-            <div class="field-value">${data.Provider_Type}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Referring Phone:</div>
-            <div class="field-value">${data.Referring_Phone}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Referring Fax:</div>
-            <div class="field-value">${data.Referring_Fax}</div>
-          </div>
+          <div class="section-title">Referral Source Information</div>
+          <div class="field"><div class="field-label">Referring Facility Name:</div><div class="field-value">${data.Facility_Name}</div></div>
+          <div class="field"><div class="field-label">Facility Type:</div><div class="field-value">${data.Facility_Type}</div></div>
+          <div class="field"><div class="field-label">Referring Provider Name:</div><div class="field-value">${data.Provider_Name}</div></div>
+          <div class="field"><div class="field-label">Provider Type:</div><div class="field-value">${data.Provider_Type}</div></div>
+          <div class="field"><div class="field-label">Referring Contact Person:</div><div class="field-value">${data.Referring_Contact_Person}</div></div>
+          <div class="field"><div class="field-label">Phone Number:</div><div class="field-value">${data.Referring_Phone}</div></div>
+          <div class="field"><div class="field-label">Fax / Email (for discharge paperwork):</div><div class="field-value">${data.Referring_Fax_Email}</div></div>
         </div>
 
         <div class="section">
-          <div class="section-title">⚕️ MEDICAL INFORMATION</div>
-          <div class="field">
-            <div class="field-label">Primary Diagnosis:</div>
-            <div class="field-value">${data.Primary_Diagnosis}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Secondary Diagnosis:</div>
-            <div class="field-value">${data.Secondary_Diagnosis}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Reason for Referral:</div>
-            <div class="field-value">${data.Reason_for_Referral}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Current Medications:</div>
-            <div class="field-value">${data.Current_Medications}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Functional Status/Mobility:</div>
-            <div class="field-value">${data.Functional_Status}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Needs Medical Equipment:</div>
-            <div class="field-value">${data.Needs_Equipment}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Equipment Details:</div>
-            <div class="field-value">${data.Equipment_Details}</div>
-          </div>
+          <div class="section-title">Member Eligibility Confirmation</div>
+          <div class="field"><div class="field-label">Member Insurance:</div><div class="field-value">${data.Member_Insurance}</div></div>
+          <div class="field"><div class="field-label">Member Experiencing Homelessness:</div><div class="field-value">${data.Experiencing_Homelessness}</div></div>
+          <div class="field"><div class="field-label">Short-term Medical Care Duration:</div><div class="field-value">${data.Care_Duration}</div></div>
+          <div class="field"><div class="field-label">Extension Days (if requesting):</div><div class="field-value">${data.Extension_Days}</div></div>
+          <div class="field"><div class="field-label">Can Perform ADLs Independently:</div><div class="field-value">${data.Perform_ADLs}</div></div>
         </div>
 
         <div class="section">
-          <div class="section-title">🩺 ADDITIONAL CLINICAL INFORMATION</div>
-          <div class="field">
-            <div class="field-label">Communicable Disease:</div>
-            <div class="field-value">${data.Communicable_Disease}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Behavioral Concerns:</div>
-            <div class="field-value">${data.Behavioral_Concerns}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Substance Use:</div>
-            <div class="field-value">${data.Substance_Use}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Probation/Parole:</div>
-            <div class="field-value">${data.Probation_Parole}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Bowel Control Issues:</div>
-            <div class="field-value">${data.Bowel_Control}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Bladder Control Issues:</div>
-            <div class="field-value">${data.Bladder_Control}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Diet Allergies:</div>
-            <div class="field-value">${data.Diet_Allergies}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Medication Allergies:</div>
-            <div class="field-value">${data.Medication_Allergies}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Other Allergies:</div>
-            <div class="field-value">${data.Other_Allergies}</div>
-          </div>
+          <div class="section-title">Medical Summary and Needs</div>
+          <div class="field"><div class="field-label">Primary Diagnosis (ICD-10):</div><div class="field-value">${data.Primary_Diagnosis}</div></div>
+          <div class="field"><div class="field-label">Secondary Diagnosis (if applicable):</div><div class="field-value">${data.Secondary_Diagnosis}</div></div>
+          <div class="field"><div class="field-label">Reason for Referral:</div><div class="field-value">${data.Reason_for_Referral}</div></div>
+          <div class="field"><div class="field-label">HPI/Assessment and Discharge Care Plan Attached:</div><div class="field-value">${data.Care_Plan_Attached}</div></div>
+          <div class="field"><div class="field-label">Medication Needs:</div><div class="field-value">${data.Medication_Needs}</div></div>
+          <div class="field"><div class="field-label">Wound Care Needed:</div><div class="field-value">${data.Wound_Care}</div></div>
+          <div class="field"><div class="field-label">Follow-up Appointments Scheduled:</div><div class="field-value">${data.Followup_Appointments}</div></div>
+          <div class="field"><div class="field-label">Appointment Details:</div><div class="field-value">${data.Appointment_Details}</div></div>
         </div>
 
         <div class="section">
-          <div class="section-title">✍️ SIGNATURE INFORMATION</div>
-          <div class="field">
-            <div class="field-label">Provider Signature:</div>
-            <div class="field-value">${data.Provider_Signature}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Signature Date:</div>
-            <div class="field-value">${data.Signature_Date}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Print Name:</div>
-            <div class="field-value">${data.Print_Name}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Facility Representative:</div>
-            <div class="field-value">${data.Facility_Representative}</div>
-          </div>
-          <div class="field">
-            <div class="field-label">Facility Rep Date:</div>
-            <div class="field-value">${data.Facility_Rep_Date}</div>
-          </div>
+          <div class="section-title">Additional Patient History</div>
+          <div class="field"><div class="field-label">Physical Aggression:</div><div class="field-value">${data.Physical_Aggression}</div></div>
+          <div class="field"><div class="field-label">Illegal Substance Use:</div><div class="field-value">${data.Substance_Use}</div></div>
+          <div class="field"><div class="field-label">Probation/Parole:</div><div class="field-value">${data.Probation_Parole}</div></div>
+          <div class="field"><div class="field-label">Bowel Control Issues:</div><div class="field-value">${data.Bowel_Control}</div></div>
+          <div class="field"><div class="field-label">Bladder Control Issues:</div><div class="field-value">${data.Bladder_Control}</div></div>
+          <div class="field"><div class="field-label">Diet Allergies:</div><div class="field-value">${data.Diet_Allergies}</div></div>
+          <div class="field"><div class="field-label">Medication Allergies:</div><div class="field-value">${data.Medication_Allergies}</div></div>
+          <div class="field"><div class="field-label">Other Allergies:</div><div class="field-value">${data.Other_Allergies}</div></div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Referring Provider Signature / Date</div>
+          <div class="field"><div class="field-label">Referring Provider Signature:</div><div class="field-value">${data.Provider_Signature}</div></div>
+          <div class="field"><div class="field-label">Date:</div><div class="field-value">${data.Signature_Date}</div></div>
+          <div class="field"><div class="field-label">Print Name:</div><div class="field-value">${data.Print_Name}</div></div>
+          <div class="field"><div class="field-label">Facility Representative (if different):</div><div class="field-value">${data.Facility_Representative}</div></div>
+          <div class="field"><div class="field-label">Date:</div><div class="field-value">${data.Facility_Rep_Date}</div></div>
         </div>
 
         ${uploadedFiles.length > 0 ? `
         <div class="section">
-          <div class="section-title">📎 ATTACHED FILES</div>
+          <div class="section-title">Attached Files</div>
           ${uploadedFiles.map((file, index) => `
             <div class="field">
               <div class="field-label">File ${index + 1}:</div>
@@ -300,7 +209,7 @@ export default function ReferralForm() {
           <strong>Reliable Recuperative Care</strong><br>
           796 Capitol Heights Saint Paul, MN 55103<br>
           Phone: (612) 998-4449 | Fax: (612) 444-8950<br>
-          Email: info@reliablerecuperative.org
+          Email: Info@reliablerecuperative.org
         </div>
 
         <button onclick="window.print()" class="print-button no-print">🖨️ Print This Form</button>
@@ -315,18 +224,15 @@ export default function ReferralForm() {
     setIsSubmitting(true);
 
     try {
-      // Initialize EmailJS
       emailjs.init('xcHnyHWnOHp0mXian');
 
       const formData = new FormData(formRef.current);
       const templateParams = {};
       
-      // Collect form data
       for (let [key, value] of formData.entries()) {
         templateParams[key] = value || 'Not provided';
       }
 
-      // Format file links for email
       let fileLinks = 'No files attached';
       if (uploadedFiles.length > 0) {
         fileLinks = uploadedFiles.map((file, index) => 
@@ -341,7 +247,6 @@ export default function ReferralForm() {
         hasFiles: uploadedFiles.length > 0
       });
 
-      // Send email with Uploadcare file links
       const result = await emailjs.send(
         'service_ew1i6oe',
         'template_ngtmb6m',
@@ -349,7 +254,7 @@ export default function ReferralForm() {
           ...templateParams,
           file_links: fileLinks,
           file_count: uploadedFiles.length,
-          to_email: 'info@reliablerecuperative.org'
+          to_email: 'Info@reliablerecuperative.org'
         }
       );
 
@@ -359,7 +264,6 @@ export default function ReferralForm() {
         alert('✅ Referral form submitted successfully!\n\nThank you for your submission. We will review it shortly.');
         formRef.current.reset();
         setUploadedFiles([]);
-        // Reset Uploadcare widget
         if (window.uploadcare) {
           window.uploadcare.Widget('[role=uploadcare-uploader]').value(null);
         }
@@ -383,7 +287,7 @@ export default function ReferralForm() {
       } else if (error.status === 400) {
         errorMessage += 'Missing required fields or invalid template parameters. ';
       }
-      errorMessage += 'Please try again or email us at info@reliablerecuperative.org';
+      errorMessage += 'Please try again or email us at Info@reliablerecuperative.org';
       
       alert(errorMessage);
     } finally {
@@ -400,7 +304,7 @@ export default function ReferralForm() {
           <h1>Reliable Recuperative Care Referral Form</h1>
           <div className="contact-info">
             <p><strong>Fax:</strong> (612) 444-8950</p>
-            <p><strong>Email:</strong> info@reliablerecuperative.org</p>
+            <p><strong>Email:</strong> Info@reliablerecuperative.org</p>
           </div>
         </div>
 
@@ -497,38 +401,88 @@ export default function ReferralForm() {
                   <label htmlFor="md">MD</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="np" name="Provider_Type" value="NP" />
-                  <label htmlFor="np">NP</label>
+                  <input type="radio" id="do" name="Provider_Type" value="DO" />
+                  <label htmlFor="do">DO</label>
+                </div>
+                <div className="checkbox-item">
+                  <input type="radio" id="aprn" name="Provider_Type" value="APRN" />
+                  <label htmlFor="aprn">APRN</label>
                 </div>
                 <div className="checkbox-item">
                   <input type="radio" id="pa" name="Provider_Type" value="PA" />
                   <label htmlFor="pa">PA</label>
                 </div>
+              </div>
+            </div>
+            
+            <div className="form-row">
+              <label htmlFor="contactPerson">Referring Contact Person</label>
+              <input type="text" id="contactPerson" name="Referring_Contact_Person" />
+            </div>
+            
+            <div className="form-row">
+              <label htmlFor="referringPhone">Phone Number <span className="required">*</span></label>
+              <input type="tel" id="referringPhone" name="Referring_Phone" required />
+            </div>
+            
+            <div className="form-row">
+              <label htmlFor="referringFaxEmail">Fax / Email (for discharge paperwork)</label>
+              <input type="text" id="referringFaxEmail" name="Referring_Fax_Email" placeholder="Fax: (612) xxx-xxxx or Email: example@email.com" />
+            </div>
+          </div>
+
+          {/* Member Eligibility Confirmation */}
+          <div className="form-section">
+            <div className="section-title">Member Eligibility Confirmation</div>
+            
+            <div className="form-row">
+              <label>
+                <input type="checkbox" name="Member_Insurance" value="MA/Hennepin Health/UCare/Blue Cross" />
+                Member is with MA / Hennepin Health / UCare / Blue Cross
+              </label>
+            </div>
+            
+            <div className="form-row">
+              <label>
+                <input type="checkbox" name="Experiencing_Homelessness" value="Yes" />
+                Member is experiencing homelessness or is unhoused
+              </label>
+            </div>
+            
+            <div className="form-row">
+              <label>Member requires short-term medical care (expected duration):</label>
+              <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="rn" name="Provider_Type" value="RN" />
-                  <label htmlFor="rn">RN</label>
+                  <input type="radio" id="duration21" name="Care_Duration" value="≤21 days" />
+                  <label htmlFor="duration21">≤21 days</label>
+                </div>
+                <div className="checkbox-item">
+                  <input type="radio" id="durationExtension" name="Care_Duration" value="Requesting Extension" />
+                  <label htmlFor="durationExtension">Requesting Extension</label>
                 </div>
               </div>
             </div>
             
             <div className="form-row">
-              <label htmlFor="referringPhone">Referring Facility Phone <span className="required">*</span></label>
-              <input type="tel" id="referringPhone" name="Referring_Phone" required />
+              <label htmlFor="extensionDays">Extension Days (if requesting extension)</label>
+              <input type="number" id="extensionDays" name="Extension_Days" placeholder="Number of days" />
             </div>
             
             <div className="form-row">
-              <label htmlFor="referringFax">Referring Facility Fax</label>
-              <input type="tel" id="referringFax" name="Referring_Fax" />
+              <label>
+                <input type="checkbox" name="Perform_ADLs" value="Yes" />
+                Member can independently perform Activities of Daily Living (ADLs)
+              </label>
             </div>
           </div>
 
-          {/* Medical Information */}
+          {/* Medical Summary and Needs */}
           <div className="form-section">
-            <div className="section-title">Medical Information</div>
+            <div className="section-title">Medical Summary and Needs</div>
             
             <div className="form-row">
-              <label htmlFor="primaryDiagnosis">Primary Diagnosis <span className="required">*</span></label>
-              <textarea id="primaryDiagnosis" name="Primary_Diagnosis" rows="3" required></textarea>
+              <label htmlFor="primaryDiagnosis">Primary Diagnosis (ICD-10) <span className="required">*</span></label>
+              <textarea id="primaryDiagnosis" name="Primary_Diagnosis" rows="3" required placeholder="Include ICD-10 code if available"></textarea>
             </div>
             
             <div className="form-row">
@@ -537,68 +491,82 @@ export default function ReferralForm() {
             </div>
             
             <div className="form-row">
-              <label htmlFor="reasonForReferral">Reason for Referral <span className="required">*</span></label>
+              <label htmlFor="reasonForReferral">Reason for Referral to Recuperative Care <span className="required">*</span></label>
               <textarea id="reasonForReferral" name="Reason_for_Referral" rows="4" required></textarea>
             </div>
             
             <div className="form-row">
-              <label htmlFor="medications">Current Medications</label>
-              <textarea id="medications" name="Current_Medications" rows="4" placeholder="List all current medications"></textarea>
-            </div>
-            
-            <div className="form-row">
-              <label htmlFor="functionalStatus">Functional Status/Mobility</label>
-              <textarea id="functionalStatus" name="Functional_Status" rows="3"></textarea>
-            </div>
-            
-            <div className="form-row">
-              <label>Needs Medical Equipment</label>
+              <label>HPI/Assessment and Discharge Care Plan Attached?</label>
               <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="equipmentYes" name="Needs_Equipment" value="Yes" />
-                  <label htmlFor="equipmentYes">Yes</label>
+                  <input type="radio" id="carePlanYes" name="Care_Plan_Attached" value="Yes" />
+                  <label htmlFor="carePlanYes">Yes</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="equipmentNo" name="Needs_Equipment" value="No" />
-                  <label htmlFor="equipmentNo">No</label>
+                  <input type="radio" id="carePlanNo" name="Care_Plan_Attached" value="No" />
+                  <label htmlFor="carePlanNo">No</label>
                 </div>
               </div>
             </div>
             
             <div className="form-row">
-              <label htmlFor="equipmentDetails">If yes, specify equipment needed</label>
-              <textarea id="equipmentDetails" name="Equipment_Details" rows="2"></textarea>
+              <label>Medication Needs</label>
+              <div className="checkbox-group">
+                <div className="checkbox-item">
+                  <input type="checkbox" id="selfAdminister" name="Medication_Needs" value="Self-administer" />
+                  <label htmlFor="selfAdminister">Self-administer</label>
+                </div>
+              </div>
+            </div>
+            
+            <div className="form-row">
+              <label>Wound Care Needed?</label>
+              <div className="checkbox-group">
+                <div className="checkbox-item">
+                  <input type="radio" id="woundYes" name="Wound_Care" value="Yes" />
+                  <label htmlFor="woundYes">Yes</label>
+                </div>
+                <div className="checkbox-item">
+                  <input type="radio" id="woundNo" name="Wound_Care" value="No" />
+                  <label htmlFor="woundNo">No</label>
+                </div>
+              </div>
+            </div>
+            
+            <div className="form-row">
+              <label>Follow-up Appointments Scheduled?</label>
+              <div className="checkbox-group">
+                <div className="checkbox-item">
+                  <input type="radio" id="appointmentYes" name="Followup_Appointments" value="Yes" />
+                  <label htmlFor="appointmentYes">Yes</label>
+                </div>
+                <div className="checkbox-item">
+                  <input type="radio" id="appointmentNo" name="Followup_Appointments" value="No" />
+                  <label htmlFor="appointmentNo">No</label>
+                </div>
+              </div>
+            </div>
+            
+            <div className="form-row">
+              <label htmlFor="appointmentDetails">If Yes, list appointments:</label>
+              <textarea id="appointmentDetails" name="Appointment_Details" rows="3" placeholder="Date, time, provider, and reason for each appointment"></textarea>
             </div>
           </div>
 
-          {/* Additional Clinical Information */}
+          {/* Additional Patient History */}
           <div className="form-section">
-            <div className="section-title">Additional Clinical Information</div>
+            <div className="section-title">Additional Patient History</div>
             
             <div className="form-row">
-              <label>Communicable Disease</label>
+              <label>Physical aggression</label>
               <div className="checkbox-group">
                 <div className="checkbox-item">
-                  <input type="radio" id="diseaseYes" name="Communicable_Disease" value="Yes" />
-                  <label htmlFor="diseaseYes">Yes</label>
+                  <input type="radio" id="aggressionYes" name="Physical_Aggression" value="Yes" />
+                  <label htmlFor="aggressionYes">Yes</label>
                 </div>
                 <div className="checkbox-item">
-                  <input type="radio" id="diseaseNo" name="Communicable_Disease" value="No" />
-                  <label htmlFor="diseaseNo">No</label>
-                </div>
-              </div>
-            </div>
-            
-            <div className="form-row">
-              <label>Behavioral Concerns</label>
-              <div className="checkbox-group">
-                <div className="checkbox-item">
-                  <input type="radio" id="behaviorYes" name="Behavioral_Concerns" value="Yes" />
-                  <label htmlFor="behaviorYes">Yes</label>
-                </div>
-                <div className="checkbox-item">
-                  <input type="radio" id="behaviorNo" name="Behavioral_Concerns" value="No" />
-                  <label htmlFor="behaviorNo">No</label>
+                  <input type="radio" id="aggressionNo" name="Physical_Aggression" value="No" />
+                  <label htmlFor="aggressionNo">No</label>
                 </div>
               </div>
             </div>
@@ -689,15 +657,17 @@ export default function ReferralForm() {
             
             <div className="form-row">
               <label htmlFor="otherAllergies">Any other Allergies</label>
-              <textarea id="otherAllergies" name="Other_Allergies"></textarea>
+              <textarea id="otherAllergies" name="Other_Allergies" rows="2"></textarea>
             </div>
           </div>
 
-          {/* File Upload Section with Uploadcare */}
+          {/* File Upload Section */}
           <div className="form-section">
             <div className="section-title">Required Attachments</div>
             <p style={{marginBottom: '15px', color: '#555'}}>
-              Please attach: Discharge Summary/Instructions, Medication List (if available), Care Plan (if available)
+              Please attach: <strong>Discharge Summary or Instructions</strong> (from MD, DO, PA, or APRN), 
+              <strong> Medication List</strong> (if available), 
+              <strong> HPI/Assessment and Discharge Care Plan</strong> (if available)
             </p>
             <p style={{marginBottom: '15px', color: '#28a745', fontWeight: 'bold'}}>
               ✓ Files will be securely uploaded to cloud storage
@@ -781,37 +751,36 @@ export default function ReferralForm() {
               <button 
                 type="button" 
                 onClick={handlePrint}
-                className="print-btn"
+                className="submit-btn"
                 style={{
-                  padding: '15px 30px',
-                  fontSize: '18px',
-                  backgroundColor: '#6c757d',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '5px',
-                  cursor: 'pointer',
-                  transition: 'background-color 0.3s'
+                  backgroundColor: '#28a745'
                 }}
-                onMouseOver={(e) => e.target.style.backgroundColor = '#5a6268'}
-                onMouseOut={(e) => e.target.style.backgroundColor = '#6c757d'}
               >
                 🖨️ Print Form
               </button>
             </div>
             <p style={{marginTop: '15px', color: '#666'}}>
-              Form will be sent to: <strong>info@reliablerecuperative.org</strong>
+              Form will be sent to: <strong>Info@reliablerecuperative.org</strong>
             </p>
           </div>
 
           {/* Instructions */}
           <div className="instructions">
             <h3>Instructions for Submission:</h3>
+            <p style={{marginBottom: '10px', fontWeight: 'bold'}}>
+              Fax or Email this form along with the discharge instructions to Reliable Recuperative Care Facility.
+            </p>
+            <p style={{marginBottom: '10px'}}>
+              <strong>Attach:</strong>
+            </p>
             <ul>
-              <li>Complete all required fields marked with <span className="required">*</span></li>
-              <li>Attach necessary documents (Discharge Summary, Medication List, Care Plan)</li>
-              <li>Click "Submit Referral Form" to send via email</li>
-              <li>Alternatively, you can fax this form and documents to (612) 444-8950</li>
+              <li>Discharge Summary or Instructions (from MD, DO, PA, or APRN)</li>
+              <li>Medication List (if available)</li>
+              <li>HPI/Assessment and Discharge Care Plan (if available)</li>
             </ul>
+            <p style={{marginTop: '15px', color: '#666'}}>
+              Alternatively, you can fax this form and documents to <strong>(612) 444-8950</strong>
+            </p>
           </div>
         </form>
       </div>
