@@ -201,15 +201,15 @@ export default function Header() {
           </Link>
 
           <Link 
-            to="/admission" 
-            style={getNavLinkStyle('/admission', true)}
+            to="/services" 
+            style={getNavLinkStyle('/services', true)}
             onMouseOver={(e) => {
-              if (location.pathname !== '/admission') {
+              if (location.pathname !== '/services') {
                 e.target.style.backgroundColor = '#d0e0eb';
               }
             }}
             onMouseOut={(e) => {
-              if (location.pathname !== '/admission') {
+              if (location.pathname !== '/services') {
                 e.target.style.backgroundColor = '#e8f0f5';
               }
             }}

@@ -19,6 +19,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/admission" element={<Services />} />  {/* ← ADD THIS LINE! */}
             <Route path="/contact" element={<Contact />} />
             <Route path="/referral" element={<ReferralForm />} />
           </Routes>
