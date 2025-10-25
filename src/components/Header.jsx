@@ -10,18 +10,13 @@ export default function Header() {
     boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)'
   };
 
-  // TOP LINE - Logo and Contact Info
+  // TOP LINE (smaller) - Contact Info Only
   const topLineStyle = {
     backgroundColor: '#2d4a5a',
-    padding: '15px 40px',
+    padding: '10px 40px',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center'
-  };
-
-  const logoStyle = {
-    height: '60px',
-    width: 'auto'
   };
 
   const contactInfoStyle = {
@@ -35,25 +30,35 @@ export default function Header() {
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    fontSize: '0.95rem',
+    fontSize: '0.9rem',
     fontWeight: '500',
     color: 'white',
     textDecoration: 'none'
   };
 
-  // BOTTOM LINE - Navigation
-  const navLineStyle = {
-    backgroundColor: '#2d4a5a',
-    borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-    padding: '15px 40px',
+  // BOTTOM LINE (bigger) - Logo and Navigation - WHITE
+  const bottomLineStyle = {
+    backgroundColor: 'white',
+    padding: '20px 40px',
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: '10px'
+    borderBottom: '2px solid #e0e0e0'
+  };
+
+  const logoStyle = {
+    height: '70px',
+    width: 'auto'
+  };
+
+  const navContainerStyle = {
+    display: 'flex',
+    gap: '10px',
+    alignItems: 'center'
   };
 
   const navLinkStyle = {
-    color: 'white',
+    color: '#2d4a5a',
     textDecoration: 'none',
     fontSize: '1rem',
     padding: '10px 20px',
@@ -67,8 +72,8 @@ export default function Header() {
     ...navLinkStyle,
     fontWeight: 'bold',
     fontSize: '1.05rem',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    border: '2px solid rgba(255, 255, 255, 0.2)'
+    backgroundColor: '#e8f0f5',
+    border: '2px solid #2d4a5a'
   };
 
   const referralButtonStyle = {
@@ -101,7 +106,7 @@ export default function Header() {
     if (isActive) {
       style = {
         ...style,
-        backgroundColor: 'rgba(255, 255, 255, 0.15)'
+        backgroundColor: '#d0e0eb'
       };
     }
     
@@ -110,29 +115,8 @@ export default function Header() {
 
   return (
     <header style={headerStyle}>
-      {/* TOP LINE - Logo and Contact Info */}
+      {/* TOP LINE (smaller) - Contact Info */}
       <div style={topLineStyle}>
-        {/* Logo on left */}
-        <Link to="/">
-          <img 
-            src="/logo1.png" 
-            alt="Reliable Recuperative Care" 
-            style={logoStyle}
-            onError={(e) => {
-              e.target.style.display = 'none';
-              const parent = e.target.parentElement;
-              if (parent && !parent.querySelector('h2')) {
-                const heading = document.createElement('h2');
-                heading.style.color = 'white';
-                heading.style.margin = '0';
-                heading.textContent = 'Reliable Recuperative Care';
-                parent.appendChild(heading);
-              }
-            }}
-          />
-        </Link>
-
-        {/* Contact info on right */}
         <div style={contactInfoStyle}>
           <a 
             href="tel:6129984449" 
@@ -140,7 +124,7 @@ export default function Header() {
             onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
             onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
           >
-            📞 Call now to reserve a bed: 612-998-4449
+            📞 612-998-4449
           </a>
           <span style={{color: 'rgba(255, 255, 255, 0.3)'}}>|</span>
           <a 
@@ -158,155 +142,188 @@ export default function Header() {
         </div>
       </div>
 
-      {/* BOTTOM LINE - Navigation */}
-      <nav style={navLineStyle}>
-        <Link 
-          to="/" 
-          style={getNavLinkStyle('/')}
-          onMouseOver={(e) => {
-            if (location.pathname !== '/') {
-              e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-            }
-          }}
-          onMouseOut={(e) => {
-            if (location.pathname !== '/') {
-              e.target.style.backgroundColor = 'transparent';
-            }
-          }}
-        >
-          Home
+      {/* BOTTOM LINE (bigger) - Logo and Navigation - WHITE */}
+      <div style={bottomLineStyle}>
+        {/* Logo on left */}
+        <Link to="/">
+          <img 
+            src="/logo1.png" 
+            alt="Reliable Recuperative Care" 
+            style={logoStyle}
+            onError={(e) => {
+              e.target.style.display = 'none';
+              const parent = e.target.parentElement;
+              if (parent && !parent.querySelector('h2')) {
+                const heading = document.createElement('h2');
+                heading.style.color = '#2d4a5a';
+                heading.style.margin = '0';
+                heading.textContent = 'Reliable Recuperative Care';
+                parent.appendChild(heading);
+              }
+            }}
+          />
         </Link>
 
-        <Link 
-          to="/about" 
-          style={getNavLinkStyle('/about')}
-          onMouseOver={(e) => {
-            if (location.pathname !== '/about') {
-              e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-            }
-          }}
-          onMouseOut={(e) => {
-            if (location.pathname !== '/about') {
-              e.target.style.backgroundColor = 'transparent';
-            }
-          }}
-        >
-          About Us
-        </Link>
+        {/* Navigation on right */}
+        <nav style={navContainerStyle}>
+          <Link 
+            to="/" 
+            style={getNavLinkStyle('/')}
+            onMouseOver={(e) => {
+              if (location.pathname !== '/') {
+                e.target.style.backgroundColor = '#f0f0f0';
+              }
+            }}
+            onMouseOut={(e) => {
+              if (location.pathname !== '/') {
+                e.target.style.backgroundColor = 'transparent';
+              }
+            }}
+          >
+            Home
+          </Link>
 
-        <Link 
-          to="/admission" 
-          style={getNavLinkStyle('/admission', true)}
-          onMouseOver={(e) => {
-            if (location.pathname !== '/admission') {
-              e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
-            }
-          }}
-          onMouseOut={(e) => {
-            if (location.pathname !== '/admission') {
-              e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-            }
-          }}
-        >
-          Admission and Referral
-        </Link>
+          <Link 
+            to="/about" 
+            style={getNavLinkStyle('/about')}
+            onMouseOver={(e) => {
+              if (location.pathname !== '/about') {
+                e.target.style.backgroundColor = '#f0f0f0';
+              }
+            }}
+            onMouseOut={(e) => {
+              if (location.pathname !== '/about') {
+                e.target.style.backgroundColor = 'transparent';
+              }
+            }}
+          >
+            About Us
+          </Link>
 
-        <Link 
-          to="/contact" 
-          style={getNavLinkStyle('/contact')}
-          onMouseOver={(e) => {
-            if (location.pathname !== '/contact') {
-              e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-            }
-          }}
-          onMouseOut={(e) => {
-            if (location.pathname !== '/contact') {
-              e.target.style.backgroundColor = 'transparent';
-            }
-          }}
-        >
-          Contact
-        </Link>
+          <Link 
+            to="/admission" 
+            style={getNavLinkStyle('/admission', true)}
+            onMouseOver={(e) => {
+              if (location.pathname !== '/admission') {
+                e.target.style.backgroundColor = '#d0e0eb';
+              }
+            }}
+            onMouseOut={(e) => {
+              if (location.pathname !== '/admission') {
+                e.target.style.backgroundColor = '#e8f0f5';
+              }
+            }}
+          >
+            Admission and Referral
+          </Link>
 
-        <Link 
-          to="/referral" 
-          style={getNavLinkStyle('/referral', false, true)}
-          onMouseOver={(e) => {
-            e.target.style.backgroundColor = '#a01828';
-            e.target.style.transform = 'translateY(-2px)';
-            e.target.style.boxShadow = '0 6px 20px rgba(196, 30, 58, 0.5)';
-          }}
-          onMouseOut={(e) => {
-            e.target.style.backgroundColor = location.pathname === '/referral' ? '#a01828' : '#c41e3a';
-            e.target.style.transform = 'translateY(0)';
-            e.target.style.boxShadow = '0 4px 15px rgba(196, 30, 58, 0.4)';
-          }}
-        >
-          Referral form
-        </Link>
-      </nav>
+          <Link 
+            to="/contact" 
+            style={getNavLinkStyle('/contact')}
+            onMouseOver={(e) => {
+              if (location.pathname !== '/contact') {
+                e.target.style.backgroundColor = '#f0f0f0';
+              }
+            }}
+            onMouseOut={(e) => {
+              if (location.pathname !== '/contact') {
+                e.target.style.backgroundColor = 'transparent';
+              }
+            }}
+          >
+            Contact
+          </Link>
+
+          <Link 
+            to="/referral" 
+            style={getNavLinkStyle('/referral', false, true)}
+            onMouseOver={(e) => {
+              e.target.style.backgroundColor = '#a01828';
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.boxShadow = '0 6px 20px rgba(196, 30, 58, 0.5)';
+            }}
+            onMouseOut={(e) => {
+              e.target.style.backgroundColor = location.pathname === '/referral' ? '#a01828' : '#c41e3a';
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.boxShadow = '0 4px 15px rgba(196, 30, 58, 0.4)';
+            }}
+          >
+            referral form
+          </Link>
+        </nav>
+      </div>
 
       {/* Responsive styles */}
       <style>{`
         @media (max-width: 1200px) {
           header > div:first-child > div {
-            flex-direction: column;
-            gap: 10px;
-            align-items: flex-end;
-          }
-          
-          header > div:first-child > div > a,
-          header > div:first-child > div > span {
-            font-size: 0.85rem;
-          }
-        }
-        
-        @media (max-width: 768px) {
-          header > div:first-child {
-            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 15px;
-            text-align: center;
-          }
-          
-          header > div:first-child > div {
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
           }
           
           header > div:first-child > div > span[style*="rgba"] {
             display: none;
           }
           
-          header nav {
-            justify-content: center;
-            flex-wrap: wrap;
+          header > div:last-child {
+            flex-direction: column;
+            gap: 20px;
+            text-align: center;
           }
           
-          header nav a {
-            font-size: 0.9rem;
-            padding: 8px 15px;
+          header > div:last-child > nav {
+            flex-wrap: wrap;
+            justify-content: center;
           }
         }
         
-        @media (max-width: 480px) {
-          header img {
-            height: 50px !important;
+        @media (max-width: 768px) {
+          header > div:first-child {
+            padding: 8px 20px !important;
           }
           
-          header > div:first-child {
+          header > div:first-child > div {
+            flex-direction: column;
+            gap: 8px;
+          }
+          
+          header > div:first-child > div > a,
+          header > div:first-child > div > span {
+            font-size: 0.85rem;
+          }
+          
+          header > div:last-child {
             padding: 15px 20px !important;
+          }
+          
+          header img {
+            height: 55px !important;
           }
           
           header nav {
-            padding: 15px 20px !important;
             flex-direction: column;
-            gap: 10px;
+            width: 100%;
           }
           
           header nav a {
             width: 100%;
             text-align: center;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          header img {
+            height: 45px !important;
+          }
+          
+          header > div:first-child > div {
+            font-size: 0.75rem;
+          }
+          
+          header nav a {
+            font-size: 0.9rem;
+            padding: 8px 15px;
           }
         }
       `}</style>
