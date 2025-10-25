@@ -39,7 +39,7 @@ export default function Header() {
   // BOTTOM LINE (bigger) - Logo and Navigation - WHITE
   const bottomLineStyle = {
     backgroundColor: 'white',
-    padding: '20px 40px',
+    padding: '20px 30px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
