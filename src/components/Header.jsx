@@ -11,9 +11,9 @@ export default function Header() {
     boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)'
   };
 
-  // Top section with logo and phone
+  // Top section with logo and phone - GREEN COLOR
   const topSectionStyle = {
-    backgroundColor: '#3d5a99',
+    backgroundColor: '#2d4a5a', // Green/teal color
     padding: '15px 40px',
     display: 'flex',
     justifyContent: 'space-between',
@@ -25,24 +25,25 @@ export default function Header() {
     width: 'auto'
   };
 
+  // GREEN phone button
   const phoneButtonStyle = {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: '#5a8a9a', // Lighter green
     color: 'white',
     padding: '10px 25px',
     borderRadius: '30px',
     textDecoration: 'none',
     fontSize: '1rem',
     fontWeight: '600',
-    border: '2px solid rgba(255, 255, 255, 0.3)',
+    border: '2px solid #6a9aaa',
     transition: 'all 0.3s',
     display: 'inline-flex',
     alignItems: 'center',
     gap: '8px'
   };
 
-  // Navigation section
+  // Navigation section - GREEN
   const navSectionStyle = {
-    backgroundColor: '#3d5a99',
+    backgroundColor: '#2d4a5a', // Same green
     borderTop: '1px solid rgba(255, 255, 255, 0.1)',
     padding: '15px 40px',
     display: 'flex',
@@ -118,20 +119,28 @@ export default function Header() {
       <div style={topSectionStyle}>
         <Link to="/">
           <img 
-            src="/logo.png" 
+            src="/logo1.png" 
             alt="Reliable Recuperative Care" 
             style={logoStyle}
             onError={(e) => {
+              console.error('Logo failed to load');
               e.target.style.display = 'none';
-              e.target.parentElement.innerHTML = '<h2 style="color: white; margin: 0;">Reliable Recuperative Care</h2>';
+              const parent = e.target.parentElement;
+              if (parent && !parent.querySelector('h2')) {
+                const heading = document.createElement('h2');
+                heading.style.color = 'white';
+                heading.style.margin = '0';
+                heading.textContent = 'Reliable Recuperative Care';
+                parent.appendChild(heading);
+              }
             }}
           />
         </Link>
         <a 
           href="tel:6129984449" 
           style={phoneButtonStyle}
-          onMouseOver={(e) => e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.3)'}
-          onMouseOut={(e) => e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.2)'}
+          onMouseOver={(e) => e.target.style.backgroundColor = '#6a9aaa'}
+          onMouseOut={(e) => e.target.style.backgroundColor = '#5a8a9a'}
         >
           📞 Call now to reserve a bed: 612-998-4449
         </a>
@@ -232,16 +241,29 @@ export default function Header() {
             flex-direction: column;
             gap: 15px;
             text-align: center;
+            padding: 15px 20px !important;
           }
           
           header nav {
             flex-direction: column;
             gap: 10px;
+            padding: 15px 20px !important;
           }
           
           header nav a {
             width: 100%;
             text-align: center;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          header img {
+            height: 50px !important;
+          }
+          
+          header > div:first-child a {
+            font-size: 0.9rem !important;
+            padding: 8px 15px !important;
           }
         }
       `}</style>
