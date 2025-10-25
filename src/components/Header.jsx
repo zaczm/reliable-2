@@ -47,7 +47,7 @@ export default function Header() {
   };
 
   const logoStyle = {
-    height: '90px', // BIGGER! (was 70px)
+    height: '110px', // BIGGER! (was 90px)
     width: 'auto'
   };
 
