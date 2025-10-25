@@ -47,7 +47,7 @@ export default function Header() {
   };
 
   const logoStyle = {
-    height: '70px',
+    height: '90px', // BIGGER! (was 70px)
     width: 'auto'
   };
 
@@ -68,12 +68,13 @@ export default function Header() {
     backgroundColor: 'transparent'
   };
 
-  const boldNavLinkStyle = {
+  // NO HIGHLIGHT - Plain style for Admission and Referral
+  const plainNavLinkStyle = {
     ...navLinkStyle,
     fontWeight: 'bold',
     fontSize: '1.05rem',
-    backgroundColor: '#e8f0f5',
-    border: '2px solid #2d4a5a'
+    backgroundColor: 'transparent', // NO background!
+    border: 'none' // NO border!
   };
 
   const referralButtonStyle = {
@@ -91,7 +92,7 @@ export default function Header() {
     display: 'inline-block'
   };
 
-  const getNavLinkStyle = (path, isBold = false, isReferral = false) => {
+  const getNavLinkStyle = (path, isAdmission = false, isReferral = false) => {
     const isActive = location.pathname === path;
     
     if (isReferral) {
@@ -101,12 +102,24 @@ export default function Header() {
       };
     }
     
-    let style = isBold ? { ...boldNavLinkStyle } : { ...navLinkStyle };
+    if (isAdmission) {
+      // Plain style for Admission - no highlight
+      let style = { ...plainNavLinkStyle };
+      if (isActive) {
+        style = {
+          ...style,
+          backgroundColor: '#f0f0f0' // Light hover only
+        };
+      }
+      return style;
+    }
+    
+    let style = { ...navLinkStyle };
     
     if (isActive) {
       style = {
         ...style,
-        backgroundColor: '#d0e0eb'
+        backgroundColor: '#f0f0f0'
       };
     }
     
@@ -144,7 +157,7 @@ export default function Header() {
 
       {/* BOTTOM LINE (bigger) - Logo and Navigation - WHITE */}
       <div style={bottomLineStyle}>
-        {/* Logo on left */}
+        {/* Logo on left - BIGGER! */}
         <Link to="/">
           <img 
             src="/logo1.png" 
@@ -205,12 +218,12 @@ export default function Header() {
             style={getNavLinkStyle('/services', true)}
             onMouseOver={(e) => {
               if (location.pathname !== '/services') {
-                e.target.style.backgroundColor = '#d0e0eb';
+                e.target.style.backgroundColor = '#f0f0f0';
               }
             }}
             onMouseOut={(e) => {
               if (location.pathname !== '/services') {
-                e.target.style.backgroundColor = '#e8f0f5';
+                e.target.style.backgroundColor = 'transparent';
               }
             }}
           >
@@ -298,7 +311,7 @@ export default function Header() {
           }
           
           header img {
-            height: 55px !important;
+            height: 70px !important;
           }
           
           header nav {
@@ -314,7 +327,7 @@ export default function Header() {
         
         @media (max-width: 480px) {
           header img {
-            height: 45px !important;
+            height: 60px !important;
           }
           
           header > div:first-child > div {
