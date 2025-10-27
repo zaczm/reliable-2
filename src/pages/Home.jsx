@@ -50,18 +50,6 @@ const Home = () => {
       color: 'from-[#D4C5A0] to-[#E8DFC0]'
     },
     {
-      icon: UserCheck,
-      title: 'Care Coordination and Support Services',
-      items: [
-        'Care plan development and implementation',
-        'Initial assessment of medical, behavioral, and social needs',
-        'Support and referral assistance for legal, housing, and transportation needs',
-        'Support and referral assistance for health care benefits and other eligible benefits',
-        'Connection to community case management and social services'
-      ],
-      color: 'from-[#D4C5A0] to-[#E8DFC0]'
-    },
-    {
       icon: Stethoscope,
       title: 'Wellness & Nursing Care',
       items: [
@@ -74,6 +62,18 @@ const Home = () => {
       ],
       color: 'from-[#D4C5A0] to-[#E8DFC0]'
     }
+    {
+      icon: UserCheck,
+      title: 'Care Coordination and Support Services',
+      items: [
+        'Care plan development and implementation',
+        'Initial assessment of medical, behavioral, and social needs',
+        'Support and referral assistance for legal, housing, and transportation needs',
+        'Support and referral assistance for health care benefits and other eligible benefits',
+        'Connection to community case management and social services'
+      ],
+      color: 'from-[#D4C5A0] to-[#E8DFC0]'
+    },
   ];
 
   return (
@@ -141,7 +141,7 @@ const Home = () => {
       {/* What is a Recuperative Care Facility */}
       <section className="section-padding bg-[#F2F1E4]">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 text-[#203B42]">Our Services</h2>
+          <h2 className="text-4xl font-bold text-center mb-12 text-[#203B42]"></h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {services.map((service, idx) => (
               <motion.div
