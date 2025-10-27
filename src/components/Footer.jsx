@@ -21,7 +21,7 @@ const Footer = () => {
         <div>
           <h3 class="text-xl font-bold mb-4">Get In Touch</h3>
           <p class="mb-2 flex items-center"><Phone size={16} class="mr-2" /> 612-998-4449</p>
-          <p class="mb-2 flex items-center"><Email size={16} class="mr-2" /> Info@reliablerecuperative.org</p>
+          <p class="mb-2 flex items-center"><Mail size={16} class="mr-2" /> Info@reliablerecuperative.org</p>
         <p class="mb-2 flex items-center"><MapPin size={16} class="mr-2" /> 796 Capitol Heights Saint Paul MN 55103</p>
         
         </div>
