@@ -49,19 +49,6 @@ const Home = () => {
       ],
       color: 'from-[#D4C5A0] to-[#E8DFC0]'
     },
-        {
-      icon: Stethoscope,
-      title: 'Wellness & Nursing Care',
-      items: [
-        'Daily in-person wellness checks by qualified providers',
-        'Basic nursing care, including monitoring physical health and pain level',
-        'Wound care',
-        'Medication support',
-        'Patient education',
-        'Immunization review and update'
-      ],
-      color: 'from-[#D4C5A0] to-[#E8DFC0]'
-    },
     {
       icon: UserCheck,
       title: 'Care Coordination and Support Services',
@@ -71,6 +58,19 @@ const Home = () => {
         'Support and referral assistance for legal, housing, and transportation needs',
         'Support and referral assistance for health care benefits and other eligible benefits',
         'Connection to community case management and social services'
+      ],
+      color: 'from-[#D4C5A0] to-[#E8DFC0]'
+    },
+    {
+      icon: Stethoscope,
+      title: 'Wellness & Nursing Care',
+      items: [
+        'Daily in-person wellness checks by qualified providers',
+        'Basic nursing care, including monitoring physical health and pain level',
+        'Wound care',
+        'Medication support',
+        'Patient education',
+        'Immunization review and update'
       ],
       color: 'from-[#D4C5A0] to-[#E8DFC0]'
     }
