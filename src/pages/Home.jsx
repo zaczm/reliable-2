@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Shield, Users } from 'lucide-react';
+import { Heart, Shield, Users, Home as HomeIcon, Stethoscope, UserCheck } from 'lucide-react';
 import { Link } from "react-router-dom";
 
 
@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import recuperativeCareImage from '../assets/recuperative_care.jpg';
 import staffModelImage from '../assets/staff_model.jpg';
 import pathRecoveryImage from '../assets/path_recovery.jpg';
-import Section1 from '@/components/Section1';
 import PathToRecovery from '@/components/PathToRecovery';
 
 const Home = () => {
@@ -30,6 +29,50 @@ const Home = () => {
       title: 'Medical Respite',
       description: 'Proper medical care in a supportive setting, ensuring rest, recovery, and dignity after hospital discharge.',
       color: 'from-[#D89D66] to-[#F2F1E4]'
+    }
+  ];
+
+  // NEW: PDF Service Boxes
+  const comprehensiveServices = [
+    {
+      icon: HomeIcon,
+      title: 'Comfort & Facility Access',
+      items: [
+        '24/7 access to a comfortable bed in a safe environment',
+        '24/7 access to bathrooms with shower, sink, and toilet',
+        'Three nutritious meals daily, tailored to client needs',
+        'Daily cleaning and sanitation for a healthy environment',
+        'Secure storage for personal belongings',
+        'Access to a facility telephone',
+        'A trained staff member available on-site 24/7',
+        'Daily in-person wellness checks by qualified providers'
+      ],
+      color: 'from-[#D4C5A0] to-[#E8DFC0]'
+    },
+    {
+      icon: UserCheck,
+      title: 'Care Coordination and Support Services',
+      items: [
+        'Care plan development and implementation',
+        'Initial assessment of medical, behavioral, and social needs',
+        'Support and referral assistance for legal, housing, and transportation needs',
+        'Support and referral assistance for health care benefits and other eligible benefits',
+        'Connection to community case management and social services'
+      ],
+      color: 'from-[#D4C5A0] to-[#E8DFC0]'
+    },
+    {
+      icon: Stethoscope,
+      title: 'Wellness & Nursing Care',
+      items: [
+        'Daily in-person wellness checks by qualified providers',
+        'Basic nursing care, including monitoring physical health and pain level',
+        'Wound care',
+        'Medication support',
+        'Patient education',
+        'Immunization review and update'
+      ],
+      color: 'from-[#D4C5A0] to-[#E8DFC0]'
     }
   ];
 
@@ -58,8 +101,42 @@ const Home = () => {
         </div>
       </section>
 
-      <section>
-        <Section1 />
+      {/* NEW: What Defines a Recovery Haven - PDF Version */}
+      <section className="section-padding bg-[#203B42] text-white py-20">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-6">
+            What Defines a Recovery Haven?
+          </h2>
+          <p className="text-center text-lg md:text-xl mb-16 max-w-4xl mx-auto text-[#D4C5A0]">
+            Our Recovery Haven provides a secure, structured environment where individuals can heal and rebuild their lives. 
+            We deliver comprehensive, evidence-based care that addresses medical, behavioral, and social needs—empowering each 
+            person on their path to wellness, stability, and independence.
+          </p>
+
+          {/* Three Service Cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {comprehensiveServices.map((service, idx) => (
+              <motion.div
+                key={idx}
+                whileHover={{ scale: 1.03 }}
+                className={`bg-gradient-to-br ${service.color} text-[#5A2E2E] p-8 rounded-2xl shadow-xl`}
+              >
+                <div className="flex flex-col items-center mb-6">
+                  <service.icon className="w-14 h-14 mb-4 text-[#5A2E2E]" />
+                  <h3 className="text-2xl font-bold text-center">{service.title}</h3>
+                </div>
+                <ul className="space-y-3 text-left">
+                  {service.items.map((item, itemIdx) => (
+                    <li key={itemIdx} className="flex items-start">
+                      <span className="text-[#5A2E2E] mr-2 mt-1">•</span>
+                      <span className="text-base leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* What is a Recuperative Care Facility */}
