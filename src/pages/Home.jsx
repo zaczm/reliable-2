@@ -49,19 +49,7 @@ const Home = () => {
       ],
       color: 'from-[#D4C5A0] to-[#E8DFC0]'
     },
-    {
-      icon: UserCheck,
-      title: 'Care Coordination and Support Services',
-      items: [
-        'Care plan development and implementation',
-        'Initial assessment of medical, behavioral, and social needs',
-        'Support and referral assistance for legal, housing, and transportation needs',
-        'Support and referral assistance for health care benefits and other eligible benefits',
-        'Connection to community case management and social services'
-      ],
-      color: 'from-[#D4C5A0] to-[#E8DFC0]'
-    },
-    {
+        {
       icon: Stethoscope,
       title: 'Wellness & Nursing Care',
       items: [
@@ -71,6 +59,18 @@ const Home = () => {
         'Medication support',
         'Patient education',
         'Immunization review and update'
+      ],
+      color: 'from-[#D4C5A0] to-[#E8DFC0]'
+    },
+    {
+      icon: UserCheck,
+      title: 'Care Coordination and Support Services',
+      items: [
+        'Care plan development and implementation',
+        'Initial assessment of medical, behavioral, and social needs',
+        'Support and referral assistance for legal, housing, and transportation needs',
+        'Support and referral assistance for health care benefits and other eligible benefits',
+        'Connection to community case management and social services'
       ],
       color: 'from-[#D4C5A0] to-[#E8DFC0]'
     }
