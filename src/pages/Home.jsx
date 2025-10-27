@@ -101,16 +101,15 @@ const Home = () => {
         </div>
       </section>
 
-      {/* NEW: What Defines a Recovery Haven - PDF Version */}
+      {/* NEW: Reliable Recuperative Care — Facility & Support Services - PDF Version */}
       <section className="section-padding bg-[#203B42] text-white py-20">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-6">
-            What Defines a Recovery Haven?
+            Reliable Recuperative Care — Facility & Support Services
           </h2>
           <p className="text-center text-lg md:text-xl mb-16 max-w-4xl mx-auto text-[#D4C5A0]">
-            Our Recovery Haven provides a secure, structured environment where individuals can heal and rebuild their lives. 
-            We deliver comprehensive, evidence-based care that addresses medical, behavioral, and social needs—empowering each 
-            person on their path to wellness, stability, and independence.
+            Reliable Recuperative Care provides a safe, supportive environment where clients recover with 
+            dignity through 24/7 care, nutritious meals, and coordinated wellness services. 
           </p>
 
           {/* Three Service Cards */}
