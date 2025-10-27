@@ -482,7 +482,7 @@ export default function ReferralForm() {
             
             <div className="form-row">
               <label htmlFor="primaryDiagnosis">Primary Diagnosis (ICD-10) <span className="required">*</span></label>
-              <textarea id="primaryDiagnosis" name="Primary_Diagnosis" rows="3" required placeholder="Include ICD-10 code if available"></textarea>
+              <textarea id="primaryDiagnosis" name="Primary_Diagnosis" rows="3" required placeholder="ICD-10 code"></textarea>
             </div>
             
             <div className="form-row">
