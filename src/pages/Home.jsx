@@ -197,7 +197,7 @@ const Home = () => {
             Start your recovery journey today. Our team is ready to guide you through every step, ensuring your comfort, safety, and personalized care.
           </p>
           <p className="text-lg mb-8">
-            📞 (612) 998-4449 | 📱 612-473-9338 | ✉️ info@reliablerecuperative.org
+            📞 (612) 998-4449 | ✉️ info@reliablerecuperative.org
           </p>
           <motion.a 
             href="/contact" 
