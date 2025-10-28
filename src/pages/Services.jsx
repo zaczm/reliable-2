@@ -82,7 +82,7 @@ const Services = () => {
             <Card
               icon={ArrowRight}
               title="How to Make a Referral"
-              description="Fill out our online referral form or contact our admissions team directly. We guide you through every step."
+              description="Fill out our online referral form or contact our admissions team directly."
               bgGradient="bg-gradient-to-br from-[#D89D66] to-[#788B9C]"
             />
           </div>

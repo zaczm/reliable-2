@@ -1,23 +1,25 @@
 /* PROFESSIONAL VISIBLE BORDERS - Medium Gray */
-* input[type="text"],
-* input[type="email"],
-* input[type="date"],
-* input[type="tel"],
-* textarea,
-* select {
-  border: 2px solid #666 !important; /* Medium gray, not too thick */
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="tel"],
+input[type="number"],
+textarea,
+select {
+  border: 2px solid #666 !important;
   background-color: white !important;
   border-radius: 4px !important;
 }
 
 /* Nice focus effect when user clicks */
-* input[type="text"]:focus,
-* input[type="email"]:focus,
-* input[type="date"]:focus,
-* input[type="tel"]:focus,
-* textarea:focus,
-* select:focus {
-  border-color: #2c5f7f !important; /* Your blue color */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #2c5f7f !important;
   outline: none !important;
   box-shadow: 0 0 0 3px rgba(44, 95, 127, 0.1) !important;
 }
@@ -48,11 +50,24 @@
   color: #2c5f7f;
   font-size: 28px;
   margin-bottom: 15px;
+  font-weight: 700 !important; /* ← FIX 1: BOLD TITLE */
+  font-weight: bold !important;
 }
 
 .contact-info {
-  color: #555;
-  font-size: 14px;
+  color: #333; /* ← FIX 2: Darker for better visibility */
+  font-size: 16px; /* ← FIX 2: Bigger */
+  font-weight: 500; /* ← FIX 2: Medium weight */
+  line-height: 1.6;
+}
+
+.contact-info p {
+  margin: 5px 0;
+}
+
+.contact-info strong {
+  color: #2c5f7f;
+  font-weight: 600;
 }
 
 .form-section {
@@ -91,6 +106,7 @@ input[type="text"],
 input[type="email"],
 input[type="date"],
 input[type="tel"],
+input[type="number"],
 textarea,
 select {
   width: 100%;
@@ -107,6 +123,7 @@ input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="date"]:focus,
 input[type="tel"]:focus,
+input[type="number"]:focus,
 textarea:focus,
 select:focus {
   outline: none;
@@ -249,34 +266,112 @@ input[type="radio"] {
   color: #dc3545;
 }
 
+/* ========================================
+   FIX 3: IMPROVED MOBILE WIREFRAME
+   ======================================== */
+
 @media (max-width: 768px) {
-  .referral-form-wrapper {
-    padding: 20px;
+  .referral-container {
+    padding: 10px; /* Less padding on mobile */
   }
-  
+
+  .referral-form-wrapper {
+    padding: 20px; /* Less padding on mobile */
+    border-radius: 4px;
+  }
+
+  /* Make title smaller but still bold on mobile */
+  .form-header h1 {
+    font-size: 20px !important;
+    line-height: 1.3;
+    font-weight: 700 !important;
+  }
+
+  /* Make contact info more readable on mobile */
+  .contact-info {
+    font-size: 14px;
+  }
+
+  .contact-info p {
+    margin: 8px 0;
+  }
+
+  /* Single column layout for form rows on mobile */
   .form-row {
     grid-template-columns: 1fr;
     gap: 8px;
   }
-  
+
+  .form-row label {
+    padding-top: 0;
+  }
+
+  /* Stack checkboxes vertically on mobile */
   .checkbox-group {
     flex-direction: column;
     gap: 10px;
   }
-}
-.form-row {
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  gap: 15px;
-  align-items: start;
-  margin-bottom: 15px;
+
+  /* Make section titles smaller on mobile */
+  .section-title {
+    font-size: 16px;
+    padding: 10px 15px;
+  }
+
+  /* Make inputs more touch-friendly on mobile */
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  input[type="tel"],
+  input[type="number"],
+  textarea,
+  select {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+    padding: 12px;
+  }
+
+  /* Make buttons full-width on mobile */
+  .submit-btn {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  /* Stack submit buttons vertically on mobile */
+  .submit-section > div {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  /* Make file upload area more compact on mobile */
+  .file-upload {
+    padding: 15px;
+  }
+
+  /* Make instructions more compact on mobile */
+  .instructions {
+    padding: 15px;
+    font-size: 14px;
+  }
+
+  .instructions ul {
+    margin-left: 15px;
+    padding-left: 0;
+  }
 }
 
-input[type="number"] {
-  width: 100%;
-  padding: 10px;
-  border: 2px solid #666;
-  border-radius: 4px;
-  font-size: 14px;
-  background-color: #ffffff;
+/* Extra small phones */
+@media (max-width: 400px) {
+  .form-header h1 {
+    font-size: 18px !important;
+  }
+
+  .contact-info {
+    font-size: 13px;
+  }
+
+  .section-title {
+    font-size: 14px;
+  }
 }
