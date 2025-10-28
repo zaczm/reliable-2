@@ -48,7 +48,7 @@ const PathToRecovery = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
               whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(233, 69, 96, 0.5)' }}
-              className="bg-[#FFFFF0] p-6 rounded-xl shadow-lg border border-[#E94560]/20 hover:bg-[#2A2E44] transition-all duration-300"
+              className="bg-[#FFFFF0] p-6 rounded-xl shadow-lg border border-[#E94560]/20 hover:bg-[#FFF8DC] transition-all duration-300"
             >
               <phase.icon className="w-10 h-10 mb-4 text-[#203B42] animate-pulse" />
               <h3 className="text-xl font-semibold mb-3 text-[#203B42]">{phase.title}</h3>
