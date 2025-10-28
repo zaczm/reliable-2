@@ -141,7 +141,7 @@ const Home = () => {
       {/* What is a Recuperative Care Facility */}
       <section className="section-padding bg-[#F2F1E4]">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 text-[#203B42]">Our Services</h2>
+          <h2 className="text-4xl font-bold text-center mb-12 text-[#203B42]"></h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {services.map((service, idx) => (
               <motion.div
