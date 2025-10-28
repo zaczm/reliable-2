@@ -4,13 +4,60 @@ import { Sun, HeartPulse, Home, UserPlus, CheckCircle } from 'lucide-react';
 
 const PathToRecovery = () => {
   const phases = [
-    { icon: Sun, title: '
-      ', description: ['Initial health evaluation', 'Medication review and support', 'Care if needed, including mental health screening'] },
-    { icon: HeartPulse, title: 'Week 2', description: ['Link with Primary Care team', 'Develop a tailored Recovery Plan', 'Begin exploring long-term housing and benefit options'] },
-    { icon: Home, title: 'Month 2', description: ['Review progress on health improvement', 'Healing support, adjusting therapy goals', 'Plan with medical input (in collaboration with healthcare providers)'] },
-    { icon: UserPlus, title: 'Week 3', description: ['Execute Recovery Plan with client input', 'Support from social worker/case manager', 'Focus on therapy (e.g., physical, mental health)'] },
-    { icon: CheckCircle, title: 'Week 4', description: ['Thorough health assessment if not done earlier', 'Evaluate daily living skills (ADLs) and support needed', 'Address housing or health barriers, connect to resources'] },
-    { icon: Home, title: 'Discharge', description: ['Coordinate with supportive housing or programs', 'Connect the patient to ongoing medical care', 'Ensure access to follow-up post-discharge equipment'] },
+    {
+      icon: Sun,
+      title: 'Week 1',
+      description: [
+        'Initial health evaluation',
+        'Medication review and support',
+        'Care if needed, including mental health screening'
+      ]
+    },
+    {
+      icon: HeartPulse,
+      title: 'Week 2',
+      description: [
+        'Link with Primary Care team',
+        'Develop a tailored Recovery Plan',
+        'Begin exploring long-term housing and benefit options'
+      ]
+    },
+    {
+      icon: Home,
+      title: 'Month 2',
+      description: [
+        'Review progress on health improvement',
+        'Healing support, adjusting therapy goals',
+        'Plan with medical input (in collaboration with healthcare providers)'
+      ]
+    },
+    {
+      icon: UserPlus,
+      title: 'Week 3',
+      description: [
+        'Execute Recovery Plan with client input',
+        'Support from social worker/case manager',
+        'Focus on therapy (e.g., physical, mental health)'
+      ]
+    },
+    {
+      icon: CheckCircle,
+      title: 'Week 4',
+      description: [
+        'Thorough health assessment if not done earlier',
+        'Evaluate daily living skills (ADLs) and support needed',
+        'Address housing or health barriers, connect to resources'
+      ]
+    },
+    {
+      icon: Home,
+      title: 'Discharge',
+      description: [
+        'Coordinate with supportive housing or programs',
+        'Connect the patient to ongoing medical care',
+        'Ensure access to follow-up post-discharge equipment'
+      ]
+    }
   ];
 
   return (
