@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Sun, HeartPulse, Home, UserPlus, CheckCircle } from 'lucide-react';
 
 const PathToRecovery = () => {
@@ -70,14 +69,13 @@ const PathToRecovery = () => {
           transition={{ delay: 1.2, duration: 0.8 }}
           className="mt-16 flex justify-center"
         >
-          <motion.div whileHover={{ scale: 1.1, backgroundColor: '#00D4FF' }}>
-            <Link
-              to="/referral"
-              className="bg-[#D89D66] text-white px-8 py-4 rounded-full font-semibold text-lg cursor-pointer hover:shadow-neon transition-all duration-300"
-            >
-              Ignite Your Recovery
-            </Link>
-          </motion.div>
+          <motion.a
+            href="/referral#referral-top"
+            whileHover={{ scale: 1.1, backgroundColor: '#00D4FF' }}
+            className="bg-[#D89D66] text-white px-8 py-4 rounded-full font-semibold text-lg cursor-pointer hover:shadow-neon transition-all duration-300"
+          >
+            Ignite Your Recovery
+          </motion.a>
         </motion.div>
       </div>
     </section>
