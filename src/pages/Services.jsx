@@ -76,7 +76,7 @@ const Services = () => {
             <Card
               icon={Users}
               title="Who Can Refer?"
-              description="Hospitals, Clinics, and MHCP providers with patient consent."
+              description="Hospitals, Clinics, and MHCP provider offices with patient consent."
               bgGradient="bg-gradient-to-br from-[#203B42] to-[#99A4E5]"
             />
             <Card
