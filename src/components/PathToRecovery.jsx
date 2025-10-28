@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Sun, HeartPulse, Home, UserPlus, CheckCircle } from 'lucide-react';
 
 const PathToRecovery = () => {
@@ -27,7 +28,7 @@ const PathToRecovery = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="mb-8 text-lg text-[#D89D66]  mx-auto"
+          className="mb-8 text-lg text-[#D89D66] mx-auto"
         >
           At Reliable Recuperative, we deliver cutting-edge, person-centered medical respite care for those facing housing instability. Aligned with the 2025 Standards for Medical Respite Programs, we fuse advanced healthcare, housing solutions, and holistic healing.
         </motion.p>
@@ -35,11 +36,11 @@ const PathToRecovery = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.8 }}
-          className="mb-8 text-lg text-[#D89D66]  mx-auto"
+          className="mb-8 text-lg text-[#D89D66] mx-auto"
         >
           Our state-of-the-art facility bridges hospital care with stable living, using innovative strategies to empower community wellness and recovery.
         </motion.p>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {phases.map((phase, index) => (
             <motion.div
@@ -48,7 +49,7 @@ const PathToRecovery = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
               whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(233, 69, 96, 0.5)' }}
-              className="bg-[#FFFFF0] p-6 rounded-xl shadow-lg border border-[#E94560]/20 hover:bg-[#FFF8DC] transition-all duration-300"
+              className="bg-[#FFFFF0] p-6 rounded-xl shadow-lg border border-[#E94560]/20 transition-all duration-300"
             >
               <phase.icon className="w-10 h-10 mb-4 text-[#203B42] animate-pulse" />
               <h3 className="text-xl font-semibold mb-3 text-[#203B42]">{phase.title}</h3>
@@ -62,18 +63,21 @@ const PathToRecovery = () => {
             </motion.div>
           ))}
         </div>
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.8 }}
           className="mt-16 flex justify-center"
         >
-          <motion.a
-            whileHover={{ scale: 1.1, backgroundColor: '#00D4FF' }}
-            className="bg-[#D89D66] text-white px-8 py-4 rounded-full font-semibold text-lg cursor-pointer hover:shadow-neon transition-all duration-300"
-          >
-            Ignite Your Recovery
-          </motion.a>
+          <motion.div whileHover={{ scale: 1.1, backgroundColor: '#00D4FF' }}>
+            <Link
+              to="/referral-form"
+              className="bg-[#D89D66] text-white px-8 py-4 rounded-full font-semibold text-lg cursor-pointer hover:shadow-neon transition-all duration-300"
+            >
+              Ignite Your Recovery
+            </Link>
+          </motion.div>
         </motion.div>
       </div>
     </section>
