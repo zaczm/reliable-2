@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sun, HeartPulse, Home, UserPlus, CheckCircle } from 'lucide-react';
-import { Link } from 'react-router-dom';  // ← ADDED THIS
 
 const PathToRecovery = () => {
   const phases = [
@@ -48,8 +47,8 @@ const PathToRecovery = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
-              whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(212, 157, 102, 0.5)' }}  {/* ← CHANGED: Lighter shadow color */}
-              className="bg-[#FFFFF0] p-6 rounded-xl shadow-lg border border-[#D89D66]/20 transition-all duration-300"  {/* ← REMOVED: hover:bg-[#2A2E44] - NO MORE DARK HOVER! */}
+              whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(233, 69, 96, 0.5)' }}
+              className="bg-[#FFFFF0] p-6 rounded-xl shadow-lg border border-[#E94560]/20 hover:bg-[#2A2E44] transition-all duration-300"
             >
               <phase.icon className="w-10 h-10 mb-4 text-[#203B42] animate-pulse" />
               <h3 className="text-xl font-semibold mb-3 text-[#203B42]">{phase.title}</h3>
@@ -69,15 +68,12 @@ const PathToRecovery = () => {
           transition={{ delay: 1.2, duration: 0.8 }}
           className="mt-16 flex justify-center"
         >
-          {/* ← CHANGED: Now links to /referral */}
-          <Link to="/referral">
-            <motion.button
-              whileHover={{ scale: 1.1, backgroundColor: '#c49564' }}  {/* ← CHANGED: Lighter hover color */}
-              className="bg-[#D89D66] text-white px-8 py-4 rounded-full font-semibold text-lg cursor-pointer hover:shadow-lg transition-all duration-300"
-            >
-              Ignite Your Recovery
-            </motion.button>
-          </Link>
+          <motion.a
+            whileHover={{ scale: 1.1, backgroundColor: '#00D4FF' }}
+            className="bg-[#D89D66] text-white px-8 py-4 rounded-full font-semibold text-lg cursor-pointer hover:shadow-neon transition-all duration-300"
+          >
+            Ignite Your Recovery
+          </motion.a>
         </motion.div>
       </div>
     </section>
