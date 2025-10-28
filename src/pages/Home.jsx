@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import recuperativeCareImage from '../assets/recuperative_care.jpg';
 import staffModelImage from '../assets/staff_model.jpg';
 import pathRecoveryImage from '../assets/path_recovery.jpg';
-import PathToRecovery from '@/components/PathToRecovery';
 
 const Home = () => {
   const services = [
@@ -127,8 +126,8 @@ const Home = () => {
                 <ul className="space-y-3 text-left">
                   {service.items.map((item, itemIdx) => (
                     <li key={itemIdx} className="flex items-start">
-                      <span className="text-[#5A2E2E] font-extrabold text-xl mr-3 mt-1">•</span>
-                      <span className="text-base leading-relaxed font-medium text-[#3A1F1F]">{item}</span>
+                      <span className="text-[#5A2E2E] mr-2 mt-1">•</span>
+                      <span className="text-base leading-relaxed">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -141,7 +140,7 @@ const Home = () => {
       {/* What is a Recuperative Care Facility */}
       <section className="section-padding bg-[#F2F1E4]">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 text-[#203B42]"></h2>
+          <h2 className="text-4xl font-bold text-center mb-12 text-[#203B42]">Our Services</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {services.map((service, idx) => (
               <motion.div
@@ -190,11 +189,6 @@ const Home = () => {
   </div>
 </section>
 
-
-     <section>
-      <PathToRecovery />
-     </section>
-
       {/* Book a Bed / Intake Team */}
       <section className="section-padding my-20 md:mx-10 mx-2 bg-[#203B42] text-white text-center rounded-lg">
         <div className="container mx-auto px-4">
@@ -203,7 +197,7 @@ const Home = () => {
             Start your recovery journey today. Our team is ready to guide you through every step, ensuring your comfort, safety, and personalized care.
           </p>
           <p className="text-lg mb-8">
-            📞 (612) 998-4449 | ✉️ info@reliablerecuperative.org
+            📞 (612) 998-4449 | 📱 612-473-9338 | ✉️ info@reliablerecuperative.org
           </p>
           <motion.a 
             href="/contact" 
