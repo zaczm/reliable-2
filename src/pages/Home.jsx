@@ -127,8 +127,8 @@ const Home = () => {
                 <ul className="space-y-3 text-left">
                   {service.items.map((item, itemIdx) => (
                     <li key={itemIdx} className="flex items-start">
-                      <span className="text-[#5A2E2E] mr-2 mt-1">•</span>
-                      <span className="text-base leading-relaxed">{item}</span>
+                      <span className="text-[#5A2E2E] font-extrabold text-xl mr-3 mt-1">•</span>
+                      <span className="text-base leading-relaxed font-medium text-[#3A1F1F]">{item}</span>
                     </li>
                   ))}
                 </ul>

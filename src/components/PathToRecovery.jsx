@@ -4,7 +4,8 @@ import { Sun, HeartPulse, Home, UserPlus, CheckCircle } from 'lucide-react';
 
 const PathToRecovery = () => {
   const phases = [
-    { icon: Sun, title: 'Week 1', description: ['Initial health evaluation', 'Medication review and support', 'Care if needed, including mental health screening'] },
+    { icon: Sun, title: '
+      ', description: ['Initial health evaluation', 'Medication review and support', 'Care if needed, including mental health screening'] },
     { icon: HeartPulse, title: 'Week 2', description: ['Link with Primary Care team', 'Develop a tailored Recovery Plan', 'Begin exploring long-term housing and benefit options'] },
     { icon: Home, title: 'Month 2', description: ['Review progress on health improvement', 'Healing support, adjusting therapy goals', 'Plan with medical input (in collaboration with healthcare providers)'] },
     { icon: UserPlus, title: 'Week 3', description: ['Execute Recovery Plan with client input', 'Support from social worker/case manager', 'Focus on therapy (e.g., physical, mental health)'] },
