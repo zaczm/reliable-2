@@ -463,7 +463,7 @@ export default function ReferralForm() {
               </div>
             </div>
             
-            <div className="form-row">
+            <div className="form-row extension-days-group">
               <label htmlFor="extensionDays">Extension Days (if requesting extension)</label>
               <input type="number" id="extensionDays" name="Extension_Days" placeholder="Number of days" />
             </div>
